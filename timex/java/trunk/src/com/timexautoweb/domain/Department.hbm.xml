@@ -14,7 +14,7 @@
         <property name="state" type="string">
             <column name="state" length="2" not-null="true" />
         </property>
-        <set name="timesheets" table="timesheets" inverse="true" lazy="true" fetch="select">
+        <set name="timesheets" table="timesheets" inverse="true" lazy="false" cascade="none" >
             <key>
                 <column name="department_id" not-null="true" />
             </key>

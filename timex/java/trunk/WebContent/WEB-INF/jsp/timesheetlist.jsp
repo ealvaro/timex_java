@@ -11,42 +11,9 @@
 <link href="styles/default.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div id="header">
-		<div id="logo">
-			<h1>
-				<a href="#"><b>T I M E X</b> </a>
-			</h1>
-			<h2>
-				<a href="">Online Timesheet System</a>
-			</h2>
-		</div>
-		<div id="menu">
-			<ul>
-				<li class="active"><a href="enterhours.htm" accesskey="N"
-					title="Login"><b>N</b>ew</a></li>
-				<c:if
-					test="${employee.employeeType == 'M' || employee.employeeType == 'E'}">
-					<li class="active"><a href="staffhours.htm" accesskey="S"
-						title="view a summary of a given week's hours for all employees"><b>S</b>taff
-							Hours Report</a></li>
-				</c:if>
-				<c:if test="${employee.employeeType == 'E'}">
-					<li class="active"><a href="overallsummary.htm" accesskey="O"
-						title="view a summary of a given week's hours for all employees per Manager."><b>O</b>verall Summary Report</a></li>
-				</c:if>
-				<c:if test="${employee.employeeType == 'A'}">
-					<li class="active"><a href="markpaid.htm"
-						accesskey="P" title="pay this	week's hours for all employees"><b>P</b>ay
-							Timesheets</a></li>
-				</c:if>
-				<li><a href="#" accesskey="R" title="Register"><b>R</b>egister</a>
-				</li>
-				<li><a href="#" accesskey="C" title="Contact Us"><b>C</b>ontact
-						Us</a></li>
-				<li><a href="#" accesskey="H" title="Help"><b>H</b>elp</a></li>
-			</ul>
-		</div>
-	</div>
+
+		<jsp:include page="../../header.jsp"/>
+		
 	<div id="page">
 		<div id="content">
 			<table align="center" cellpadding="0" cellspacing="0">
@@ -124,51 +91,16 @@
 			</table>
 		</div>
 		<!-- end #content -->
-		<div id="sidebar">
-			<div id="news" class="boxed1">
-				<h2 class="title">News &amp; Updates</h2>
-				<div class="content">
-					<ul>
-						<li>
-							<h3>
-								February 14, 2012: <a href="#">TIMEX Training</a>
-							</h3>
-							<p>
-								We are having a 2 hr training session on TIMEX. Please <a
-									href="#">register here&hellip;</a>
-							</p>
-						</li>
-						<li>
-							<h3>
-								March 31, 2012: <a href="#">End of Quarter Reports</a>
-							</h3>
-							<p>
-								Make sure you submit your timesheets before this date for end of
-								the quarter reports. <a href="#">Read more&hellip;</a>
-							</p>
-						</li>
-						<li>
-							<h3>
-								June 30, 2012: <a href="#">End of Quarter Reports</a>
-							</h3>
-							<p>
-								Make sure you submit your timesheets before this date for end of
-								the quarter reports. <a href="#">Read more&hellip;</a>
-							</p>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- end #sidebar -->
+
+		<jsp:include page="../../sidebar_home.jsp"/>
+		
 		<div style="clear: both; height: 1px;"></div>
 	</div>
-	<!-- end #page -->
-	<div id="footer">
-		<p>
-			Copyright &copy; 2012 TIMEX - Online Timesheet System for <a
-				href="http://localhost:8080">ACME Company Inc.</a>
-		</p>
-	</div>
+<!-- end #page -->
+
+		<jsp:include page="../../footer.jsp"/>
+		
+</body>
+</html>
 </body>
 </html>

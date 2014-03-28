@@ -8,9 +8,13 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="employee" class="com.timexautoweb.domain.Employee" fetch="select">
+        <many-to-one name="employeeMngr" class="com.timexautoweb.domain.Employee" lazy="false" not-found="ignore"
+			cascade="none" insert="false" update="false">
             <column name="employee_id" not-null="true" />
         </many-to-one>
+        <property name="employee_id" type="int">
+            <column name="employee_id" />
+        </property>
         <property name="name" type="string">
             <column name="name" length="100" not-null="true" />
         </property>
@@ -47,13 +51,13 @@
         <property name="registrationDate" type="timestamp">
             <column name="registrationDate" length="19" not-null="true" />
         </property>
-        <set name="employees" table="employees" inverse="true" lazy="true" fetch="select">
+        <set name="employees" table="employees" inverse="true" lazy="false"	cascade="none" >
             <key>
                 <column name="employee_id" not-null="true" />
             </key>
             <one-to-many class="com.timexautoweb.domain.Employee" />
         </set>
-        <set name="timesheets" table="timesheets" inverse="true" lazy="true" fetch="select">
+        <set name="timesheets" table="timesheets" inverse="true" lazy="false" cascade="none" >
             <key>
                 <column name="employee_id" not-null="true" />
             </key>

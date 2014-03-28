@@ -10,8 +10,14 @@ import java.util.Set;
  */
 public class Employee implements java.io.Serializable {
 
+	public static final char HOURLY = 'H';
+	public static final char MANAGER = 'M';
+	public static final char EXECUTIVE = 'E';
+	public static final char ACCOUNTING = 'A';
+
 	private Integer id;
-	private Employee employee;
+	private int employee_id;
+	private Employee employeeMngr;
 	private String name;
 	private String email;
 	private char employeeType;
@@ -30,9 +36,10 @@ public class Employee implements java.io.Serializable {
 	public Employee() {
 	}
 
-	public Employee(Employee employee, String name, String email, char employeeType, String password, String username,
+	public Employee(Employee employeeMngr, String name, String email, char employeeType, String password, String username,
 			String state, double payrate, double taxrate, Date registrationDate) {
-		this.employee = employee;
+		this.employeeMngr = employeeMngr;
+		
 		this.name = name;
 		this.email = email;
 		this.employeeType = employeeType;
@@ -44,10 +51,10 @@ public class Employee implements java.io.Serializable {
 		this.registrationDate = registrationDate;
 	}
 
-	public Employee(Employee employee, String name, String email, char employeeType, String password, String username,
+	public Employee(Employee employeeMngr, String name, String email, char employeeType, String password, String username,
 			String address, String city, String state, String zipcode, double payrate, double taxrate,
 			Date registrationDate, Set employees, Set timesheets) {
-		this.employee = employee;
+		this.employeeMngr = employeeMngr;
 		this.name = name;
 		this.email = email;
 		this.employeeType = employeeType;
@@ -72,12 +79,20 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Employee getEmployee() {
-		return this.employee;
+	public int getEmployee_id() {
+		return employee_id;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployee_id(int employee_id) {
+		this.employee_id = employee_id;
+	}
+
+	public Employee getEmployeeMngr() {
+		return this.employeeMngr;
+	}
+
+	public void setEmployeeMngr(Employee employeeMngr) {
+		this.employeeMngr = employeeMngr;
 	}
 
 	public String getName() {
@@ -190,6 +205,22 @@ public class Employee implements java.io.Serializable {
 
 	public void setTimesheets(Set timesheets) {
 		this.timesheets = timesheets;
+	}
+
+	public static char getHourly() {
+		return HOURLY;
+	}
+
+	public static char getManager() {
+		return MANAGER;
+	}
+
+	public static char getExecutive() {
+		return EXECUTIVE;
+	}
+
+	public static char getAccounting() {
+		return ACCOUNTING;
 	}
 
 }

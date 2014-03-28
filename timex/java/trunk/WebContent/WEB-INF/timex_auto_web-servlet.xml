@@ -6,18 +6,17 @@
          http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- URL mapping -->
-
 	<bean id="urlMap"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<props>
 				<prop key="/timesheetlist.htm">timesheetListController</prop>
+				<prop key="/enterhours.htm">timesheetEnterHoursController</prop>
 			</props>
 		</property>
 	</bean>
-
+	<!-- Interceptors -->
 	<!-- Controllers -->
-
 	<bean name="timesheetListController" class="com.timexautoweb.controllers.TimesheetListController">
 		<property name="timesheetManager">
 			<ref bean="timesheetManager" />
@@ -26,9 +25,27 @@
 			<value>timesheetlist</value>
 		</property>
 	</bean>
-
+	<bean name="timesheetEnterHoursController" class="com.timexautoweb.controllers.EnterHoursController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.Timesheet</value>
+		</property>
+		<property name="formView">
+			<value>enterhours</value>
+		</property>
+		<property name="successView">
+			<value>redirect:timesheetlist.htm</value>
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="departmentManager">
+			<ref bean="departmentManager" />
+		</property>
+	</bean>
 	<!-- Validators -->
-
 	<!-- Model classes -->
 	<bean id="employeeManager" class="com.timexautoweb.domain.EmployeeHome" />
 	<bean id="timesheetManager" class="com.timexautoweb.domain.TimesheetHome" />
@@ -53,5 +70,13 @@
 	<!-- Spring job scheduling -->
 	<!-- Spring JMX support -->
 	<!-- Resource Bundle -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+			</list>
+		</property>
+	</bean>
 
 </beans>

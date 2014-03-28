@@ -8,10 +8,14 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="employee" class="com.timexautoweb.domain.Employee" lazy="false" fetch="select">
+        <property name="department_id" column="department_id"></property>
+        <property name="employee_id" column="employee_id"></property>
+        <many-to-one name="employee" class="com.timexautoweb.domain.Employee" lazy="false" not-found="ignore"
+			cascade="none" insert="false" update="false">
             <column name="employee_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="department" class="com.timexautoweb.domain.Department" lazy="false" fetch="select">
+        <many-to-one name="department" class="com.timexautoweb.domain.Department" lazy="false" not-found="ignore"
+			cascade="none" insert="false" update="false">
             <column name="department_id" not-null="true" />
         </many-to-one>
         <property name="statusCode" type="char">
@@ -45,7 +49,7 @@
             <key>
                 <column name="timesheet_id" not-null="true" />
             </key>
-            <one-to-many class="com.timexautoweb.domain.Payment" />
+            <one-to-many class="com.timexautoweb.domain.Payment" not-found="ignore" />
         </set>
     </class>
 </hibernate-mapping>

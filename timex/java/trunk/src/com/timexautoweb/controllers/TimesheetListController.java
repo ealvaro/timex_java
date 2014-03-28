@@ -29,11 +29,12 @@ public class TimesheetListController implements Controller {
 	private static final Logger logger = Logger.getLogger(TimesheetListController.class);
 
 	/**
-	 * Returns a list of Timesheet database objects in ModelAndView.
+	 * Returns a list of Timesheets database objects in ModelAndView.
 	 * 
 	 * @see com.visualpatterns.timex.model.Timesheet
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//Get all timesheets not paid for employee with id = 1
 		List<Timesheet> timesheets = timesheetManager.getTimesheets(1);
 		logger.debug("Showing timesheets for employee id = " + 1);
 		return new ModelAndView(getSuccessView(), MAP_KEY, timesheets);
