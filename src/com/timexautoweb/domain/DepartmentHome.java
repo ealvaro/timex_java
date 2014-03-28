@@ -11,6 +11,7 @@ import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.util.JDBCExceptionReporter;
 
 import com.timexautoweb.util.HibernateUtil;
 
@@ -159,7 +160,11 @@ public class DepartmentHome {
 			log.debug("Get all Departments successful, result size: " + departmentList.size());
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
-			session.getTransaction().rollback();
+			try {
+				session.getTransaction().rollback();
+			} catch (HibernateException se) {
+				return null;
+			}
 			throw e;
 		}
 

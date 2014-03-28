@@ -1,133 +1,246 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Online Timesheet System</title>
-<meta name="keywords" content="Timeheets, Time, Clock" />
+<meta name="keywords" content="Timeheets, Time, Clock, Work, Hours" />
 <meta name="description"
 	content="This is TIMEX, the Online Timesheet System for ACME Company Inc." />
 <link href="styles/default.css" rel="stylesheet" type="text/css" />
+<link href="styles/menu.css" rel="stylesheet" type="text/css" />
+<script src="javascript/jquery.min.js" type="text/javascript"></script>
+<script src="javascript/menu.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="header">
 		<div id="logo">
 			<h1>
-				<a href="#"><b>T I M E X</b> </a>
+				<a href="#"><b>T I M E X</b>
+				</a>
 			</h1>
 			<h2>
 				<a href="">Online Timesheet System</a>
 			</h2>
 		</div>
-		<div id="menu">
-			<ul>
-				<li class="active"><a href="timesheetenterhours.html"
-					accesskey="N" title="Login"><b>N</b>ew</a>
+		<div>
+			<ul id="jsddm">
+				<li><a href="index.html" accesskey="H" title="Home"><b>H</b>ome</a>
 				</li>
-				<li><a href="#" accesskey="R" title="Register"><b>R</b>egister</a>
+				<li><a href="signin.html" accesskey="L" title="Login"><b>L</b>ogin</a>
 				</li>
-				<li><a href="#" accesskey="C" title="Contact Us"><b>C</b>ontact
-						Us</a>
+				<li><a href="registration.html" accesskey="R" title="Register"><b>R</b>egister</a>
 				</li>
-				<li><a href="#" accesskey="H" title="Help"><b>H</b>elp</a>
-				</li>
+				<li><a href="timesheetlist.htm"><b>T</b>imesheets</a>
+					<ul>
+						<li><a href="enterhours.htm" accesskey="N" title="Login"><b>N</b>ew
+								Timesheet</a>
+						</li>
+						<li><a href="timesheetlist.htm" accesskey="U"
+							title="Timesheetlist"><b>U</b>npaid Timesheets</a>
+						</li>
+						<li><a href="printpaycheck.html" accesskey="P"
+							title="Timesheetlist"><b>P</b>aid Timesheets</a>
+						</li>
+						<li><a href="approvetimesheets.html" accesskey="A"
+							title="Timesheetlist"><b>A</b>pprove Timesheets</a>
+						</li>
+					</ul></li>
+				<li><a href="staffhours.html"><b>R</b>eports</a>
+					<ul>
+						<li><a href="staffhours.html" accesskey="S"
+							title="Timesheetlist"><b>S</b>taff Report</a>
+						</li>
+						<li><a href="overallsummary.html" accesskey="U"
+							title="Timesheetlist">S<b>U</b>mmary Report</a>
+						</li>
+						<li><a href="printhours.html" accesskey="O"
+							title="Timesheetlist"><b>O</b>ne Timesheet Report</a>
+						</li>
+					</ul></li>
+				<li><a href="#"><b>H</b>elp</a>
+					<ul>
+						<li><a href="#" accesskey="C" title="Contact Us"><b>C</b>ontact
+								Us</a>
+						</li>
+					</ul></li>
 			</ul>
 		</div>
+		<div class="clear"></div>
 	</div>
 	<div id="page">
 		<div id="content">
-			<table align="center" cellpadding="0" cellspacing="0">
-				<tr>
-					<td>
-						<table border="0" align="center" cellpadding="4" cellspacing="0"
-							bordercolor="#CCCCCC">
-							<tr>
-								<td colspan="2">
-									<div align="right" class="style1 style17">
-										<div align="left">
-											<span class="style21">Timesheet List </span><br>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<p align="center" class="style30">&nbsp;</p>
-									<table align="center" cellspacing="0" cellpadding="8"
-										border="1">
-										<tbody>
-											<tr>
-												<th>Period Ending</th>
-												<th>Hours</th>
-												<th>Department</th>
-												<th>Status</th>
-												<th>Timesheet Id</th>
-											</tr>
 
-											<tr>
-												<td align="center"><a href="timesheetprinthours.html">
-														04/21/2006 </a></td>
-												<td align="center">22.00</td>
-												<td align="center">Accounting</td>
-												<td align="center">A
-													<div></div></td>
-												<td align="center">1
-													<div></div></td>
-											</tr>
+			<table cellspacing="0" cellpadding="0" align="center">
+				<tbody>
+					<tr>
+						<td>
+							<p></p>
+							<table cellspacing="0" cellpadding="4" bordercolor="#CCCCCC"
+								align="center">
+								<tbody>
+									<tr valign="middle">
+										<td width="90%" valign="middle" height="60">
+											<h1 class="title">Timesheets List</h1> <br>
+										</td>
+										<td nowrap="nowrap" align="right"><a href="index.html">Sign
+												out</a></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<p align="center">
+												<!-- status messages -->
 
-											<tr>
-												<td align="center"><a href="timesheetprinthours.html">
-														05/29/2006 </a></td>
-												<td align="center">40.00</td>
-												<td align="center">Information Technology</td>
-												<td align="center">A
-													<div></div></td>
-												<td align="center">2
-													<div></div></td>
-											</tr>
+											</p> <br>
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td>
+											<div align="center">
+												Employee :<span class="style25">Mike Dover
+													<p></p> </span>
+											</div>
+										</td>
+									</tr>
 
-											<tr>
-												<td align="center"><a href="timesheetprinthours.html">
-														06/22/2006 </a></td>
-												<td align="center">27.00</td>
-												<td align="center">Information Technology</td>
-												<td align="center">A
-													<div></div></td>
-												<td align="center">3
-													<div></div></td>
-											</tr>
-
-											<tr>
-												<td align="center"><a href="timesheetenterhours.html">
-														01/11/2010 </a></td>
-												<td align="center">40.00</td>
-												<td align="center">Information Technology</td>
-												<td align="center">P
-													<div></div></td>
-												<td align="center">4
-													<div></div></td>
-											</tr>
-
-											<tr>
-												<td align="center"><a href="timesheetenterhours.html">
-														01/18/2011 </a></td>
-												<td align="center">26.00</td>
-												<td align="center">Information Technology</td>
-												<td align="center">P
-													<div></div></td>
-												<td align="center">5
-													<div></div></td>
-											</tr>
-
-										</tbody>
-									</table></td>
-							</tr>
-							<tr>
-								<td colspan="2">&nbsp;</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
+								</tbody>
+							</table>
+							<table cellspacing="10" cellpadding="8" border="0" align="center">
+								<tbody>
+									<tr>
+										<th><span class="style31">Period Ending </span>
+										</th>
+										<th><span class="style31">Hours </span>
+										</th>
+										<th><span class="style31">Department </span>
+										</th>
+										<th><span class="style31">Status </span>
+										</th>
+										<th><span class="style31">Timesheet Id </span>
+										</th>
+									</tr>
+									<tr>
+										<td align="center"><a href="enterhours.htm?tid=39">2012-12-09
+										</a>
+										</td>
+										<td><div align="center" class="style25">48.00</div>
+										</td>
+										<td><div align="center" class="style25">Accounting</div>
+										</td>
+										<td><div align="center" class="style25">P</div>
+										</td>
+										<td><div align="center" class="style25">39</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=20">2012-04-08
+										</a>
+										</td>
+										<td><div align="center" class="style25">26.00</div>
+										</td>
+										<td><div align="center" class="style25">Information
+												Technology</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">20</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=18">2012-02-26
+										</a>
+										</td>
+										<td><div align="center" class="style25">22.00</div>
+										</td>
+										<td><div align="center" class="style25">Information
+												Technology</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">18</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=8">2010-03-28
+										</a>
+										</td>
+										<td><div align="center" class="style25">40.00</div>
+										</td>
+										<td><div align="center" class="style25">Information
+												Technology</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">8</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=7">2010-03-21
+										</a>
+										</td>
+										<td><div align="center" class="style25">37.00</div>
+										</td>
+										<td><div align="center" class="style25">Information
+												Technology</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">7</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=5">2010-02-28
+										</a>
+										</td>
+										<td><div align="center" class="style25">40.00</div>
+										</td>
+										<td><div align="center" class="style25">Information
+												Technology</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">5</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=4">2010-02-21
+										</a>
+										</td>
+										<td><div align="center" class="style25">32.00</div>
+										</td>
+										<td><div align="center" class="style25">Accounting</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">4</div>
+										</td>
+									</tr>
+									<tr>
+										<td align="center"><a href="printhours.html?tid=3">2010-01-31
+										</a>
+										</td>
+										<td><div align="center" class="style25">44.00</div>
+										</td>
+										<td><div align="center" class="style25">Customer
+												Support</div>
+										</td>
+										<td><div align="center" class="style25">A</div>
+										</td>
+										<td><div align="center" class="style25">3</div>
+										</td>
+									</tr>
+								</tbody>
+							</table></td>
+					</tr>
+				</tbody>
 			</table>
+
+
+
 		</div>
 		<!-- end #content -->
 		<div id="sidebar">

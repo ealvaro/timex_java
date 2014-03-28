@@ -69,47 +69,94 @@
 	</div>
 	<div id="page">
 		<div id="content">
+			<table cellspacing="0" cellpadding="0" align="center">
+				<tbody>
+					<tr>
+						<td>
+							<div align="left">
+								<a href="javascript:history.go(-1)">Previous page</a>
+							</div>
+							<table cellspacing="0" cellpadding="4" bordercolor="#CCCCCC"
+								border="0" align="center">
+								<tbody>
+									<tr valign="middle">
+										<td width="90%" valign="middle" height="60">
+											<h1 class="title">Print Timesheet</h1> <br>
+										</td>
 
-			<form action="timesheetlist.htm" method="post">
-				<table cellspacing="0" cellpadding="0" align="center">
-					<tbody>
-						<tr>
-							<td>
-								<table cellspacing="0" cellpadding="4" bordercolor="#CCCCCC"
-									align="center">
-									<tbody>
-										<tr valign="middle">
-											<td width="90%" valign="middle" height="60">
-												<h1 class="title">Login</h1> <br>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2"><center> <!-- status messages -->
-												</center>
-												<div align="center">
-													<p>Please provide your authentication information
-														below.</p>
-													<p>
-														Employee Id: <input type="text" maxlength="11" size="11"
-															value="0" name="username"> &nbsp;Password: <input
-															type="password" maxlength="10" size="8" value=""
-															name="password"> &nbsp; <input type="submit"
-																value="Sign In" name="submitted">
-													</p>
-												</div></td>
-										</tr>
-										<tr>
-											<td colspan="2">If you cannot remember your password
-												please click <a href="forgot_password.html">here</a>
-											</td>
-										</tr>
-									</tbody>
-								</table></td>
-						</tr>
-					</tbody>
-				</table>
-
-			</form>
+										<td nowrap="nowrap" align="right"><a href="index.html">Sign
+												out</a></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<div align="center">
+												Employee: <span class="style25">Mike Dover </span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Period
+												Ending: <span class="style25">2012-04-08 </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status:
+												<span class="style25">A </span> <br>
+											</div>
+											<table cellspacing="25" cellpadding="8" border="0"
+												align="center">
+												<tbody>
+													<tr>
+														<th scope="row"><span class="style31">Department</span>
+														</th>
+														<th><span class="style31">Mo</span>
+														</th>
+														<th><span class="style31">Tu</span>
+														</th>
+														<th><span class="style31">We</span>
+														</th>
+														<th><span class="style31">Th</span>
+														</th>
+														<th><span class="style31">Fr</span>
+														</th>
+														<th><span class="style31">Sa</span>
+														</th>
+														<th><span class="style31">Su</span>
+														</th>
+														<th><span class="style31">Total</span>
+														</th>
+													</tr>
+													<tr>
+														<td scope="row">
+															<div align="center" class="style25">Information
+																Technology</div>
+														</td>
+														<td><div align="center" class="style25">4.00</div>
+														</td>
+														<td><div align="center" class="style25">4.00</div>
+														</td>
+														<td><div align="center" class="style25">9.00</div>
+														</td>
+														<td><div align="center" class="style25">9.00</div>
+														</td>
+														<td><div align="center" class="style25">0.00</div>
+														</td>
+														<td><div align="center" class="style25">0.00</div>
+														</td>
+														<td><div align="center" class="style25">0.00</div>
+														</td>
+														<td><div align="center" class="style25">26.00</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<p align="center">
+												&nbsp;&nbsp; <input type="button" onclick="window.print()"
+													value="Print Timesheet" id="submit" name="submit">
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">&nbsp;</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<!-- end #content -->
 		<div id="sidebar">
