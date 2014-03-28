@@ -122,8 +122,7 @@ CREATE TABLE `employees` (
   `taxrate` double unsigned NOT NULL,
   `registrationDate` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_employees_1` (`employee_id`),
-  CONSTRAINT `FK_employees_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_employees_1` (`employee_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
@@ -160,8 +159,7 @@ CREATE TABLE `payments` (
   `netPay` double NOT NULL,
   `timesheet_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_payments_1` (`timesheet_id`),
-  CONSTRAINT `FK_payments_1` FOREIGN KEY (`timesheet_id`) REFERENCES `timesheets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_payments_1` (`timesheet_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
@@ -242,9 +240,7 @@ CREATE TABLE `timesheets` (
   `minutesSun` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_timesheets_1` (`employee_id`),
-  KEY `FK_timesheets_2` (`department_id`),
-  CONSTRAINT `FK_timesheets_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_timesheets_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_timesheets_2` (`department_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --

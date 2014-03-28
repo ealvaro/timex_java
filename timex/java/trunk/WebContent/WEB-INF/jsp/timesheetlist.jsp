@@ -9,6 +9,9 @@
 <meta name="description"
 	content="This is TIMEX, the Online Timesheet System for ACME Company Inc." />
 <link href="styles/default.css" rel="stylesheet" type="text/css" />
+<link href="styles/menu.css" rel="stylesheet" type="text/css" />
+<script src="javascript/jquery.min.js" type="text/javascript"></script>
+<script src="javascript/menu.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -67,7 +70,7 @@
 																pattern="MM/dd/yyyy" /> </a>
 													</c:if> <c:if test="${t.statusCode == 'A' || t.statusCode == 'S'}">
 														<a
-															href='printhours.htm?tid=<c:out value="${t.id}"/>'>
+															href='printhours.html?tid=<c:out value="${t.id}"/>'>
 															<fmt:formatDate value="${t.periodEndingDate}" type="date"
 																pattern="MM/dd/yyyy" /> </a>
 													</c:if>
