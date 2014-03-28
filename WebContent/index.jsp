@@ -77,8 +77,8 @@
 	<div style="clear: both; height: 1px;"></div>
 </div>
 <!-- end #page -->
-<div id="footer">
-	<p>Copyright &copy; 2012 TIMEX - Online Timesheet System for <a href="http://localhost:8080">ACME Company Inc.</a></p>
-</div>
+
+		<jsp:include page="footer.jsp"/>
+		
 </body>
 </html>
