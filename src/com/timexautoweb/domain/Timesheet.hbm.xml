@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2013 6:38:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.timexautoweb.domain.Timesheet" table="timesheets" catalog="timex">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="employee" class="com.timexautoweb.domain.Employee" lazy="false" fetch="select">
+            <column name="employee_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="department" class="com.timexautoweb.domain.Department" lazy="false" fetch="select">
+            <column name="department_id" not-null="true" />
+        </many-to-one>
+        <property name="statusCode" type="char">
+            <column name="statusCode" length="1" not-null="true" />
+        </property>
+        <property name="periodEndingDate" type="date">
+            <column name="periodEndingDate" length="10" not-null="true" />
+        </property>
+        <property name="minutesMon" type="java.lang.Integer">
+            <column name="minutesMon" />
+        </property>
+        <property name="minutesTue" type="java.lang.Integer">
+            <column name="minutesTue" />
+        </property>
+        <property name="minutesWed" type="java.lang.Integer">
+            <column name="minutesWed" />
+        </property>
+        <property name="minutesThu" type="java.lang.Integer">
+            <column name="minutesThu" />
+        </property>
+        <property name="minutesFri" type="java.lang.Integer">
+            <column name="minutesFri" />
+        </property>
+        <property name="minutesSat" type="java.lang.Integer">
+            <column name="minutesSat" />
+        </property>
+        <property name="minutesSun" type="java.lang.Integer">
+            <column name="minutesSun" />
+        </property>
+        <set name="payments" table="payments" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="timesheet_id" not-null="true" />
+            </key>
+            <one-to-many class="com.timexautoweb.domain.Payment" />
+        </set>
+    </class>
+</hibernate-mapping>

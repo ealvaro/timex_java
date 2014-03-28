@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2013 6:38:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.timexautoweb.domain.Employee" table="employees" catalog="timex">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="employee" class="com.timexautoweb.domain.Employee" fetch="select">
+            <column name="employee_id" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" not-null="true" />
+        </property>
+        <property name="employeeType" type="char">
+            <column name="employeeType" length="1" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="40" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="31" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="45" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="45" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="2" not-null="true" />
+        </property>
+        <property name="zipcode" type="string">
+            <column name="zipcode" length="10" />
+        </property>
+        <property name="payrate" type="double">
+            <column name="payrate" precision="0" scale="0" not-null="true" />
+        </property>
+        <property name="taxrate" type="double">
+            <column name="taxrate" precision="0" scale="0" not-null="true" />
+        </property>
+        <property name="registrationDate" type="timestamp">
+            <column name="registrationDate" length="19" not-null="true" />
+        </property>
+        <set name="employees" table="employees" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="employee_id" not-null="true" />
+            </key>
+            <one-to-many class="com.timexautoweb.domain.Employee" />
+        </set>
+        <set name="timesheets" table="timesheets" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="employee_id" not-null="true" />
+            </key>
+            <one-to-many class="com.timexautoweb.domain.Timesheet" />
+        </set>
+    </class>
+</hibernate-mapping>

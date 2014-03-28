@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.0.37-community
+-- Server version	5.5.16-log
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -29,6 +29,7 @@ DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
   `departmentCode` char(2) NOT NULL,
   `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`departmentCode`),
   UNIQUE KEY `DepartmentCodeIndex` (`departmentCode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -46,6 +47,31 @@ INSERT INTO `department` (`departmentCode`,`name`) VALUES
 
 
 --
+-- Definition of table `departments`
+--
+
+DROP TABLE IF EXISTS `departments`;
+CREATE TABLE `departments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `departments`
+--
+
+/*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` (`id`,`name`,`state`) VALUES 
+ (1,'Accounting','FL'),
+ (2,'Customer Support','GA'),
+ (3,'Human Resources','FL'),
+ (4,'Information Technology','FL');
+/*!40000 ALTER TABLE `departments` ENABLE KEYS */;
+
+
+--
 -- Definition of table `employee`
 --
 
@@ -56,7 +82,8 @@ CREATE TABLE `employee` (
   `email` varchar(255) NOT NULL,
   `employeeCode` char(1) NOT NULL,
   `password` varchar(10) NOT NULL,
-  `managerEmployeeId` int(11) default NULL,
+  `managerEmployeeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`employeeId`),
   UNIQUE KEY `EmployeeIdIndex` (`employeeId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -66,12 +93,89 @@ CREATE TABLE `employee` (
 
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
 INSERT INTO `employee` (`employeeId`,`name`,`email`,`employeeCode`,`password`,`managerEmployeeId`) VALUES 
- (1,'Mike Dover','mdover@acme.com','H','rapidjava',3),
- (2,'Ajay Kumar','akumar@acme.com','H','visualpatt',3),
- (3,'Teresa Walker','twalker@acme.com','M','agilestuff',4),
- (4,'Tom Brady','tbrady@acme.com','E','superbowl',4),
- (5,'Alvaro E. Escobar','aescobar@acme.com','A','123456',4);
+ (1,'Mike Dover','cjacob@nova.edu','H','rapidjava',3),
+ (2,'Ajay Kumar','sbutcher@nova.edu','H','visualpatt',3),
+ (3,'Teresa Walker','cw769@nova.edu','M','agilestuff',4),
+ (4,'Tom Brady','ealvaro@nova.edu','E','superbowl',4),
+ (5,'Alvaro E. Escobar','alvaroescobar@live.com','A','123456',4);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+
+
+--
+-- Definition of table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+CREATE TABLE `employees` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `employeeType` char(1) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `employee_id` int(10) NOT NULL,
+  `username` varchar(31) NOT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(2) NOT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `payrate` double unsigned NOT NULL,
+  `taxrate` double unsigned NOT NULL,
+  `registrationDate` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_employees_1` (`employee_id`),
+  CONSTRAINT `FK_employees_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employees`
+--
+
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` (`id`,`name`,`email`,`employeeType`,`password`,`employee_id`,`username`,`address`,`city`,`state`,`zipcode`,`payrate`,`taxrate`,`registrationDate`) VALUES 
+ (1,'Mike Dover','cjacob@nova.edu','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'123-45-6789','123 Main St','Davie','FL','33314',35.68,20,'2006-07-23 15:00:00'),
+ (2,'Ajay Kumar','sbutcher@nova.edu','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'123-67-1234','234 Main St','Davie','FL','33314',35.68,18,'2006-07-28 19:00:00'),
+ (3,'Teresa Walker','cw769@nova.edu','M','561f2584267c175a4e9327bffa1214facc7006fe',4,'123-89-4321','567 Main St','Davie','FL','33314',120000,16,'2007-01-02 16:00:00'),
+ (4,'Tom Brady','ealvaro@nova.edu','E','561f2584267c175a4e9327bffa1214facc7006fe',4,'123-09-3456','989 Main St','Davie','FL','33314',275000,21,'2007-04-01 08:00:00'),
+ (5,'Alvaro E. Escobar','alvaroescobar@live.com','A','561f2584267c175a4e9327bffa1214facc7006fe',4,'123-12-7654','999 Main St','Davie','FL','33314',90000,23,'2010-10-27 08:00:00'),
+ (9,'John Smith','jsmith@acme.com','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'209-56-4854','','','FL','',0,0,'2012-10-27 12:31:42'),
+ (10,'Joe Smith','jsmith@acme.com','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'209-56-4854','','','FL','',0,0,'2012-10-29 19:36:04'),
+ (11,'Jane Smith','jsmith@acme.com','M','561f2584267c175a4e9327bffa1214facc7006fe',4,'209-45-8356','','','GA','',0,0,'2012-10-29 20:15:28'),
+ (12,'Alvarito Escobar','alvarito@nova.edu','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'123-45-6999','123 Main St','Davie','FL','33314',50,30,'2012-12-04 11:00:00'),
+ (13,'John Doe','jdoe@hotmail.com','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'123-45-8899','123 Main St','Davie','FL','33314',48,30,'2012-12-05 18:21:00'),
+ (14,'Jane Doe','janedoe@hotmail.com','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'janedoe','123 Main St','Davie','FL','33314',38,22,'2012-12-05 18:58:00'),
+ (15,'dfsdf dsfs','esdf@dasdl.com','H','561f2584267c175a4e9327bffa1214facc7006fe',3,'123-45-6789','123 Main St','Davie','FL','33314',48,30,'2012-12-06 21:38:00');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+
+
+--
+-- Definition of table `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE `payments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `regularRate` double NOT NULL,
+  `overtimeRate` double NOT NULL,
+  `taxPercent` double NOT NULL,
+  `netPay` double NOT NULL,
+  `timesheet_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_payments_1` (`timesheet_id`),
+  CONSTRAINT `FK_payments_1` FOREIGN KEY (`timesheet_id`) REFERENCES `timesheets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` (`id`,`regularRate`,`overtimeRate`,`taxPercent`,`netPay`,`timesheet_id`) VALUES 
+ (1,35.68,53.52,20,1084.67,1),
+ (2,35.68,53.52,18,1143.32,2),
+ (3,57.69,57.69,16,1938.46,6),
+ (4,132.21,132.21,21,4177.88,10),
+ (5,43.27,43.27,23,1332.69,19);
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 
 
 --
@@ -80,21 +184,21 @@ INSERT INTO `employee` (`employeeId`,`name`,`email`,`employeeCode`,`password`,`m
 
 DROP TABLE IF EXISTS `timesheet`;
 CREATE TABLE `timesheet` (
-  `timesheetid` int(10) unsigned NOT NULL auto_increment,
+  `timesheetid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `employeeid` int(10) unsigned NOT NULL,
   `statuscode` char(1) NOT NULL,
   `periodEndingDate` date NOT NULL,
   `departmentCode` char(4) NOT NULL,
-  `minutesMon` int(11) default NULL,
-  `minutesTue` int(11) default NULL,
-  `minutesWed` int(11) default NULL,
-  `minutesThu` int(11) default NULL,
-  `minutesFri` int(11) default NULL,
-  `minutesSat` int(11) default NULL,
-  `minutesSun` int(11) default NULL,
-  PRIMARY KEY  (`timesheetid`),
+  `minutesMon` int(11) DEFAULT NULL,
+  `minutesTue` int(11) DEFAULT NULL,
+  `minutesWed` int(11) DEFAULT NULL,
+  `minutesThu` int(11) DEFAULT NULL,
+  `minutesFri` int(11) DEFAULT NULL,
+  `minutesSat` int(11) DEFAULT NULL,
+  `minutesSun` int(11) DEFAULT NULL,
+  PRIMARY KEY (`timesheetid`),
   UNIQUE KEY `TimesheetIndex` (`employeeid`,`periodEndingDate`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timesheet`
@@ -103,8 +207,69 @@ CREATE TABLE `timesheet` (
 /*!40000 ALTER TABLE `timesheet` DISABLE KEYS */;
 INSERT INTO `timesheet` (`timesheetid`,`employeeid`,`statuscode`,`periodEndingDate`,`departmentCode`,`minutesMon`,`minutesTue`,`minutesWed`,`minutesThu`,`minutesFri`,`minutesSat`,`minutesSun`) VALUES 
  (1,2,'P','2006-08-19','IT',480,480,360,480,480,0,0),
- (2,1,'A','2006-08-19','HR',0,0,480,480,480,0,0);
+ (2,1,'C','2006-08-19','HR',480,480,480,480,480,0,0),
+ (3,1,'C','2010-01-31','CS',480,480,480,600,600,0,0),
+ (4,1,'A','2010-02-21','AC',480,480,480,240,240,0,0),
+ (5,1,'A','2010-02-28','IT',420,360,480,360,360,420,0),
+ (6,3,'A','2010-03-21','CS',480,480,480,480,480,0,0),
+ (7,1,'A','2010-03-21','IT',480,480,480,240,420,120,0),
+ (8,1,'A','2010-03-28','IT',480,480,480,480,480,0,0),
+ (9,2,'A','2010-03-28','AC',480,480,48,480,480,0,0),
+ (10,4,'P','2010-05-02','CS',240,240,240,0,0,0,0),
+ (11,3,'A','2010-05-02','CS',300,300,300,300,300,0,0),
+ (18,1,'P','2012-02-26','IT',360,360,240,0,0,0,0),
+ (19,5,'P','2012-03-25','IT',480,480,480,480,480,240,0);
 /*!40000 ALTER TABLE `timesheet` ENABLE KEYS */;
+
+
+--
+-- Definition of table `timesheets`
+--
+
+DROP TABLE IF EXISTS `timesheets`;
+CREATE TABLE `timesheets` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `employee_id` int(10) NOT NULL,
+  `statusCode` char(1) NOT NULL,
+  `periodEndingDate` date NOT NULL,
+  `department_id` int(10) unsigned NOT NULL,
+  `minutesMon` int(10) unsigned DEFAULT NULL,
+  `minutesTue` int(10) unsigned DEFAULT NULL,
+  `minutesWed` int(10) unsigned DEFAULT NULL,
+  `minutesThu` int(10) unsigned DEFAULT NULL,
+  `minutesFri` int(10) unsigned DEFAULT NULL,
+  `minutesSat` int(10) unsigned DEFAULT NULL,
+  `minutesSun` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_timesheets_1` (`employee_id`),
+  KEY `FK_timesheets_2` (`department_id`),
+  CONSTRAINT `FK_timesheets_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_timesheets_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `timesheets`
+--
+
+/*!40000 ALTER TABLE `timesheets` DISABLE KEYS */;
+INSERT INTO `timesheets` (`id`,`employee_id`,`statusCode`,`periodEndingDate`,`department_id`,`minutesMon`,`minutesTue`,`minutesWed`,`minutesThu`,`minutesFri`,`minutesSat`,`minutesSun`) VALUES 
+ (1,2,'C','2006-08-19',4,480,480,360,480,480,0,0),
+ (2,1,'C','2006-08-19',3,480,480,480,480,480,0,0),
+ (3,1,'A','2010-01-31',2,480,480,480,600,600,0,0),
+ (4,1,'A','2010-02-21',1,480,480,480,240,240,0,0),
+ (5,1,'S','2010-02-28',4,420,360,480,360,360,420,0),
+ (6,3,'C','2010-03-21',2,480,480,480,480,480,0,0),
+ (7,1,'S','2010-03-21',4,480,480,480,240,420,120,0),
+ (8,1,'S','2010-03-28',4,480,480,480,480,480,0,0),
+ (9,2,'S','2010-03-28',1,480,480,48,480,480,0,0),
+ (10,4,'C','2010-05-02',2,480,480,480,480,480,0,0),
+ (11,3,'A','2010-05-02',2,300,300,300,300,300,0,0),
+ (18,1,'A','2012-02-26',4,360,360,240,360,0,0,0),
+ (19,5,'C','2012-03-25',4,480,480,480,480,480,240,0),
+ (20,14,'A','2012-04-08',4,240,240,540,540,0,0,0),
+ (37,3,'P','2012-04-08',3,420,480,480,420,0,0,0),
+ (38,2,'A','2012-04-08',2,420,360,300,240,0,0,0);
+/*!40000 ALTER TABLE `timesheets` ENABLE KEYS */;
 
 
 
