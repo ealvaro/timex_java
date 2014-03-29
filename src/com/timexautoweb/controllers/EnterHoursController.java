@@ -1,14 +1,11 @@
 package com.timexautoweb.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +16,7 @@ import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
+import com.timexautoweb.util.ApplicationSecurityManager;
 import com.timexautoweb.util.DateUtil;
 
 /**
@@ -31,6 +29,7 @@ public class EnterHoursController extends SimpleFormController {
 
 	private TimesheetHome timesheetManager;
 	private DepartmentHome departmentManager;
+	private ApplicationSecurityManager applicationSecurityManager;
 	private EmployeeHome employeeManager;
 	public static final String TID = "tid";
 
@@ -47,9 +46,8 @@ public class EnterHoursController extends SimpleFormController {
 		if (request.getParameter(TID) != null && request.getParameter(TID).trim().length() > 0) {
 			timesheet = timesheetManager.findById(Integer.parseInt(request.getParameter(TID)));
 		} else {
-			// We are hard-coding for now the employee whose timesheet belongs to.
 			timesheet = new Timesheet();
-			timesheet.setEmployee_id(1);
+			timesheet.setEmployee_id(((Employee) applicationSecurityManager.getEmployee(request)).getId());
 			timesheet.setPeriodEndingDate(DateUtil.getCurrentPeriodEndingDate());
 		}
 		timesheet.setStatusCode(Timesheet.PENDING);
@@ -64,9 +62,9 @@ public class EnterHoursController extends SimpleFormController {
 	 */
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(Integer.class, new MinutesPropertyEditor());
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-		binder.registerCustomEditor(Date.class, editor);
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+//		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+//		binder.registerCustomEditor(Date.class, editor);
 	}
 
 	/**
@@ -117,6 +115,10 @@ public class EnterHoursController extends SimpleFormController {
 
 	public void setEmployeeManager(EmployeeHome employeeManager) {
 		this.employeeManager = employeeManager;
+	}
+
+	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
+		this.applicationSecurityManager = applicationSecurityManager;
 	}
 
 }

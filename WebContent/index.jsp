@@ -7,41 +7,13 @@
 <meta name="description" content="This is TIMEX, the Online Timesheet System for ACME Company Inc." />
 <link href="styles/default.css" rel="stylesheet" type="text/css" />
 <link href="styles/menu.css" rel="stylesheet" type="text/css" />
+<script src="javascript/jquery.min.js" type="text/javascript"></script>
+<script src="javascript/menu.js" type="text/javascript"></script>
 </head>
 <body>
-<div id="header">
-	<div id="logo">
-		<h1><a href="#"><b>T I M E X</b></a></h1>
-		<h2><a href="">Online Timesheet System</a></h2>
-	</div>
-	<div id="menu">
-		<ul id="jsddm">
-					<li><a href="index.html" accesskey="H" title="Home"><b>H</b>ome</a></li>
-					<li><a href="signin.html" accesskey="L" title="Login"><b>L</b>ogin</a></li>
-					<li><a href="registration.html" accesskey="R" title="Register"><b>R</b>egister</a></li>
-					<li><a href="timesheetlist.htm"><b>T</b>imesheets</a>
-						<ul>
-							<li><a href="enterhours.htm" accesskey="N" title="Login"><b>N</b>ew Timesheet</a></li>
-							<li><a href="timesheetlist.htm" accesskey="U" title="Timesheetlist"><b>U</b>npaid Timesheets</a></li>
-							<li><a href="printpaycheck.html" accesskey="P" title="Timesheetlist"><b>P</b>aid Timesheets</a></li>
-							<li><a href="approvetimesheets.html" accesskey="A" title="Timesheetlist"><b>A</b>pprove Timesheets</a></li>
-						</ul>
-					</li>
-					<li><a href="staffhours.html"><b>R</b>eports</a>
-						<ul>
-							<li><a href="staffhours.html" accesskey="S" title="Timesheetlist"><b>S</b>taff Report</a></li>
-							<li><a href="overallsummary.html" accesskey="U" title="Timesheetlist">S<b>U</b>mmary Report</a></li>
-							<li><a href="printhours.html" accesskey="O" title="Timesheetlist"><b>O</b>ne Timesheet Report</a></li>
-						</ul>
-					</li>
-					<li><a href="#"><b>H</b>elp</a>
-						<ul>
-							<li><a href="#" accesskey="C" title="Contact Us"><b>C</b>ontact Us</a></li>
-						</ul>
-					</li>
-		</ul>
-	</div>
-</div>
+
+		<jsp:include page="header.jsp"/>
+		
 <div id="page">
 	<div id="content">
 		<div id="welcome" class="boxed2">

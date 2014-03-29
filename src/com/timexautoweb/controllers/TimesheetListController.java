@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
+import com.timexautoweb.util.ApplicationSecurityManager;
 
 /**
  * Controller for the Timesheet List screen.
@@ -22,6 +23,7 @@ public class TimesheetListController implements Controller {
 
 	public static final String MAP_KEY = "timesheetsJSPVar";
 	public static final String EMP_KEY = "employee";
+	private ApplicationSecurityManager applicationSecurityManager;
 
 	private TimesheetHome timesheetManager;
 	private String successView;
@@ -34,10 +36,10 @@ public class TimesheetListController implements Controller {
 	 * @see com.visualpatterns.timex.model.Timesheet
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//Get all timesheets not paid for employee with id = 1
-		List<Timesheet> timesheets = timesheetManager.getTimesheets(1);
+		Employee myEmp = (Employee) applicationSecurityManager.getEmployee(request);
+		List<Timesheet> timesheets = timesheetManager.getTimesheets(myEmp.getId());
 		logger.debug("Showing timesheets for employee id = " + 1);
-		return new ModelAndView(getSuccessView(), MAP_KEY, timesheets);
+		return new ModelAndView(getSuccessView(), MAP_KEY, timesheets).addObject(EMP_KEY, myEmp);
 	}
 
 	public TimesheetHome getTimesheetManager() {
@@ -54,6 +56,14 @@ public class TimesheetListController implements Controller {
 
 	public void setSuccessView(String successView) {
 		this.successView = successView;
+	}
+
+	public ApplicationSecurityManager getApplicationSecurityManager() {
+		return applicationSecurityManager;
+	}
+
+	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
+		this.applicationSecurityManager = applicationSecurityManager;
 	}
 
 
