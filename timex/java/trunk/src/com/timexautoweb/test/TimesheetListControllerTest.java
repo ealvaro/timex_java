@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.timexautoweb.controllers.TimesheetListController;
 import com.timexautoweb.domain.Department;
 import com.timexautoweb.domain.Employee;
+import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
+import com.timexautoweb.util.ApplicationSecurityManager;
 
 /**
  * Test class for TimeListController
@@ -23,7 +25,9 @@ import com.timexautoweb.domain.TimesheetHome;
 public class TimesheetListControllerTest extends TestCase {
 	private MockHttpServletRequest mockHttpServletRequest = null;
 	private TimesheetListController timesheetListController = null;
+	private ApplicationSecurityManager applicationSecurityManager = null;
 	private TimesheetHome timesheetManager = new TimesheetHome();
+	private EmployeeHome employeeManager = new EmployeeHome();
 	private final int EMPLOYEE_ID = 1;
 	Timesheet timesheet1 = null;
 	Timesheet timesheet2 = null;
@@ -42,12 +46,8 @@ public class TimesheetListControllerTest extends TestCase {
 	public void testHandleRequest() throws Exception {
 		mockHttpServletRequest = new MockHttpServletRequest("GET", "/timesheetlist.htm");
 
-		Employee employee = new Employee();
-		employee.setId(EMPLOYEE_ID);
-
-		// Inject objects Spring normally would
-		timesheetListController = new TimesheetListController();
-		timesheetListController.setTimesheetManager(timesheetManager);
+		// Simulate that Employee with id = 1 is logged in.
+		applicationSecurityManager.setEmployee(mockHttpServletRequest, employeeManager.findById(EMPLOYEE_ID));
 
 		// This is the real test
 		ModelAndView modelAndView = timesheetListController.handleRequest(mockHttpServletRequest, null);
@@ -72,6 +72,11 @@ public class TimesheetListControllerTest extends TestCase {
 	 * Create two test Timesheet objects in DB
 	 */
 	protected void setUp() throws Exception {
+		// Inject objects Spring normally would
+		timesheetListController = new TimesheetListController();
+		timesheetListController.setTimesheetManager(timesheetManager);
+		applicationSecurityManager = new ApplicationSecurityManager();
+		timesheetListController.setApplicationSecurityManager(applicationSecurityManager);
 	}
 
 	/**
