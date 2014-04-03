@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +34,9 @@ public class EnterHoursController extends SimpleFormController {
 	private DepartmentHome departmentManager;
 	private ApplicationSecurityManager applicationSecurityManager;
 	private EmployeeHome employeeManager;
+	private SimpleMailMessage message;
+	private MailSender mailSender;
+
 	public static final String TID = "tid";
 
 	/**
@@ -90,6 +96,7 @@ public class EnterHoursController extends SimpleFormController {
 				timesheet.setStatusCode(Timesheet.PENDING);
 			} else {
 				timesheet.setStatusCode(Timesheet.SUBMITTED);
+				sendEmailToManager(request);
 			}
 			timesheetManager.attachDirty(timesheet);
 
@@ -103,6 +110,21 @@ public class EnterHoursController extends SimpleFormController {
 			}
 		}
 		return new ModelAndView(getSuccessView());
+	}
+
+	private void sendEmailToManager(HttpServletRequest request) {
+		Employee employee = (Employee) applicationSecurityManager.getEmployee(request);
+		message.setFrom(employee.getEmail());
+		message.setTo(employee.getEmployeeMngr().getEmail());
+		SimpleMailMessage threadSafeMailMessage = new SimpleMailMessage(message);
+		try {
+			mailSender.send(threadSafeMailMessage);
+		} catch (MailException e) {
+			System.out.println("Error sending email OBO " + message.getFrom());
+			request.getSession().setAttribute("error", getMessageSourceAccessor().getMessage("error.mail.notsent"));
+			request.getSession().removeAttribute("message");
+		}
+
 	}
 
 	public void setTimesheetManager(TimesheetHome timesheetManager) {
@@ -119,6 +141,14 @@ public class EnterHoursController extends SimpleFormController {
 
 	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
 		this.applicationSecurityManager = applicationSecurityManager;
+	}
+
+	public void setMessage(SimpleMailMessage message) {
+		this.message = message;
+	}
+
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
 	}
 
 }

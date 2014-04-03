@@ -79,6 +79,12 @@
 		<property name="employeeManager">
 			<ref bean="employeeManager" />
 		</property>
+		<property name="message">
+			<ref bean="submittalEmailMessage" />
+		</property>
+		<property name="mailSender">
+			<ref bean="mailSender" />
+		</property>
 	</bean>
 	<bean name="signinController" class="com.timexautoweb.controllers.SignInController">
 		<property name="commandClass">
@@ -117,6 +123,7 @@
 
 	<!-- Utility classes -->
 	<bean id="applicationSecurityManager" class="com.timexautoweb.util.ApplicationSecurityManager" />
+
 	<!-- View Resolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -132,7 +139,50 @@
 	</bean>
 
 	<!-- Spring mail support -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="nova.edu" />
+	</bean>
+	<bean id="submittalEmailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="subject" value="Timesheet Submitted" />
+		<property name="text" value="My timesheet is submitted.  Regards." />
+	</bean>
+	<bean id="employeeReminderMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="ealvaro@nova.edu" />
+		<property name="subject" value="Reminder: Submit Timesheet" />
+		<property name="text"
+			value="Please don't forget to submit your timesheet.  Thank you!" />
+	</bean>
+	<bean id="reminderEmail" class="com.timexautoweb.jobs.ReminderEmail">
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="employeeManager">
+			<ref bean="employeeManager" />
+		</property>
+		<property name="mailSender">
+			<ref bean="mailSender" />
+		</property>
+		<property name="employeeReminderMessage">
+			<ref bean="employeeReminderMessage" />
+		</property>
+	</bean>
 	<!-- Spring job scheduling -->
+	<bean id="reminderEmailJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="reminderEmail" />
+		<property name="targetMethod" value="sendEmployeeReminderEMail" />
+	</bean>
+	<bean id="reminderEmailJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="reminderEmailJobDetail" />
+		<property name="cronExpression" value="0 0 17 ? * 4" />
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="reminderEmailJobTrigger" />
+			</list>
+		</property>
+	</bean>
 	<!-- Spring JMX support -->
 	<!-- Resource Bundle -->
 	<bean id="messageSource"

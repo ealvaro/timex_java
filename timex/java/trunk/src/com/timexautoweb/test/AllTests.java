@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.timexautoweb.controllers.EnterHoursControllerTest;
+import com.timexautoweb.controllers.SignInControllerTest;
 
 
 public class AllTests extends TestCase {
@@ -17,6 +18,7 @@ public class AllTests extends TestCase {
 		TestSuite controllerTestSuite = new TestSuite("Controller Tests");
 		controllerTestSuite.addTestSuite(TimesheetListControllerTest.class);
 		controllerTestSuite.addTestSuite(EnterHoursControllerTest.class);
+		controllerTestSuite.addTestSuite(SignInControllerTest.class);
 
 		// Full test suite
 		TestSuite fullSuite = new TestSuite("All Tests");
