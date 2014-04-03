@@ -15,7 +15,7 @@
 </head>
 <body>
 
-		<jsp:include page="../../header.jsp"/>
+		<jsp:include flush="false" page="../../header.jsp"/>
 		
 	<div id="page">
 		<div id="content">
@@ -47,7 +47,10 @@
 											<div align="center">
 												Employee :
 												<c:out value="${employee.name}" />
-												<p></p>
+											</div>
+											<div align="center">
+												Type :
+												<c:out value="${employee.employeeType}" />
 											</div></td>
 									</tr>
 									<p></p>
@@ -70,7 +73,7 @@
 																pattern="MM/dd/yyyy" /> </a>
 													</c:if> <c:if test="${t.statusCode == 'A' || t.statusCode == 'S'}">
 														<a
-															href='printhours.html?tid=<c:out value="${t.id}"/>'>
+															href='printhours.htm?tid=<c:out value="${t.id}"/>'>
 															<fmt:formatDate value="${t.periodEndingDate}" type="date"
 																pattern="MM/dd/yyyy" /> </a>
 													</c:if>

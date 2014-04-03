@@ -9,7 +9,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -31,17 +33,27 @@ public class SignInController extends SimpleFormController {
 	 * 
 	 * @see Employee
 	 */
-	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+	protected Object formBackingObject(HttpServletRequest request) {
 		return new Employee();
 	}
 
 	/** Forwards to success view, if already logged in */
 	public ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException errors,
 			Map controlModel) throws Exception {
+		// If already login then redirect to success view.
 		if (applicationSecurityManager.getEmployee(request) != null)
 			return new ModelAndView(getSuccessView());
 
 		return super.showForm(request, response, errors, controlModel);
+	}
+
+	/**
+	 * 
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#initBinder(javax.servlet.http.HttpServletRequest,
+	 *      org.springframework.web.bind.ServletRequestDataBinder)
+	 */
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+		binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, true));
 	}
 
 	/** Validates user/password against database */
@@ -50,8 +62,8 @@ public class SignInController extends SimpleFormController {
 			return;
 
 		Employee formEmployee = (Employee) command;
-		Employee dbEmployee = (Employee) command;
-		if ((dbEmployee = employeeManager.findById(formEmployee.getId())) == null)
+		Employee dbEmployee = null;
+		if (formEmployee.getId() == null || (dbEmployee = employeeManager.findById(formEmployee.getId())) == null)
 			errors.reject("error.login.invalid");
 		else {
 			if (encryptPassword(formEmployee.getPassword()).equals(dbEmployee.getPassword())) {

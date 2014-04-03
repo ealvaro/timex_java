@@ -56,7 +56,7 @@ CREATE TABLE `departments` (
   `name` varchar(255) NOT NULL,
   `state` varchar(2) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `departments`
@@ -123,7 +123,7 @@ CREATE TABLE `employees` (
   `registrationDate` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_employees_1` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees`
@@ -239,7 +239,7 @@ CREATE TABLE `timesheets` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_timesheets_1` (`employee_id`),
   KEY `FK_timesheets_2` (`department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timesheets`
@@ -262,7 +262,8 @@ INSERT INTO `timesheets` (`id`,`employee_id`,`statusCode`,`periodEndingDate`,`de
  (19,5,'C','2012-03-25',4,480,480,480,480,480,240,0),
  (20,14,'A','2012-04-08',4,240,240,540,540,0,0,0),
  (37,3,'P','2012-04-08',3,420,480,480,420,0,0,0),
- (38,2,'A','2012-04-08',2,420,360,300,240,0,0,0);
+ (38,2,'A','2012-04-08',2,420,360,300,240,0,0,0),
+ (39,1,'P','2013-03-24',2,480,480,480,480,480,0,0);
 /*!40000 ALTER TABLE `timesheets` ENABLE KEYS */;
 
 
