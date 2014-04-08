@@ -8,13 +8,11 @@
             <column name="id" />
             <generator class="identity" />
         </id>
+        <property name="managerEmployeeId" column="employee_id"></property>
         <many-to-one name="employeeMngr" class="com.timexautoweb.domain.Employee" lazy="false" not-found="ignore"
 			cascade="none" insert="false" update="false">
             <column name="employee_id" not-null="true" />
         </many-to-one>
-        <property name="employee_id" type="int">
-            <column name="employee_id" />
-        </property>
         <property name="name" type="string">
             <column name="name" length="100" not-null="true" />
         </property>

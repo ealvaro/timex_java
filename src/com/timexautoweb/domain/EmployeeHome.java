@@ -163,4 +163,24 @@ public class EmployeeHome {
 		}
 		return employeeList;
 	}
+	/**
+	 * Returns list of all Employee records reporting to Employee with given
+	 * employeeId.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Employee> getReportingEmployees(int employeeId) {
+		List<Employee> employeeList = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			employeeList = session.createQuery("from Employee WHERE managerEmployeeId = ? ORDER BY name")
+					.setInteger(0, employeeId).list();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return employeeList;
+	}
+
 }

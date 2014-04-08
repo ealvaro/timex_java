@@ -177,9 +177,29 @@ public class TimesheetHome {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		try {
-			timesheet = (Timesheet) session.createQuery(
-					"from Timesheet where employee_id = ? and periodEndingDate = ?").setInteger(0, employeeId)
-					.setDate(1, periodEndingDate).uniqueResult();
+			timesheet = (Timesheet) session
+					.createQuery("from Timesheet where employee_id = ? and periodEndingDate = ?")
+					.setInteger(0, employeeId).setDate(1, periodEndingDate).uniqueResult();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return timesheet;
+	}
+
+	/**
+	 * Returns Timesheet database record with matching employeeId and
+	 * periodEndingDate.
+	 */
+	public Timesheet findLastOne(int employeeId) {
+		Timesheet timesheet = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			timesheet = (Timesheet) session
+					.createQuery("from Timesheet where employee_id = ? order by periodEndingDate desc")
+					.setInteger(0, employeeId).setMaxResults(1).uniqueResult();
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();

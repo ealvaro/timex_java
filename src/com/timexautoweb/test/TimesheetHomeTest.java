@@ -2,8 +2,11 @@ package com.timexautoweb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
+import com.timexautoweb.controllers.EnterHoursControllerTest;
 import com.timexautoweb.domain.DepartmentHome;
 import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.domain.Timesheet;
@@ -79,6 +82,14 @@ public class TimesheetHomeTest extends TestCase {
 		assertNotNull("Timesheet for employee id = 1 exists", timesheets);
 		assertEquals(timesheets.get(0).getEmployee().getId(), new Integer(1));
 		assertFalse("Timesheet has not been paid", timesheets.get(0).getStatusCode() == 'C');
+	}
+
+	public static void main(String args[]) {
+		junit.textui.TestRunner.run(suite());
+	}
+
+	public static Test suite() {
+		return new TestSuite(TimesheetHomeTest.class);
 	}
 
 }

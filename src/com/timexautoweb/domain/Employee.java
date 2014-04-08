@@ -16,8 +16,8 @@ public class Employee implements java.io.Serializable {
 	public static final char ACCOUNTING = 'A';
 
 	private Integer id;
-	private int employee_id;
 	private Employee employeeMngr;
+	private int managerEmployeeId;
 	private String name;
 	private String email;
 	private char employeeType;
@@ -39,7 +39,6 @@ public class Employee implements java.io.Serializable {
 	public Employee(Employee employeeMngr, String name, String email, char employeeType, String password, String username,
 			String state, double payrate, double taxrate, Date registrationDate) {
 		this.employeeMngr = employeeMngr;
-		
 		this.name = name;
 		this.email = email;
 		this.employeeType = employeeType;
@@ -79,20 +78,20 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public int getEmployee_id() {
-		return employee_id;
-	}
-
-	public void setEmployee_id(int employee_id) {
-		this.employee_id = employee_id;
-	}
-
 	public Employee getEmployeeMngr() {
 		return this.employeeMngr;
 	}
 
 	public void setEmployeeMngr(Employee employeeMngr) {
 		this.employeeMngr = employeeMngr;
+	}
+
+	public int getManagerEmployeeId() {
+		return managerEmployeeId;
+	}
+
+	public void setManagerEmployeeId(int managerEmployeeId) {
+		this.managerEmployeeId = managerEmployeeId;
 	}
 
 	public String getName() {

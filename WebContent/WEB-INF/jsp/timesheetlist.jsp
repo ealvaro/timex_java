@@ -43,7 +43,7 @@
 										<td>&nbsp;</td>
 									</tr>
 									<tr>
-										<td>
+										<td colspan="2">
 											<div align="center">
 												Employee :
 												<c:out value="${employee.name}" />
