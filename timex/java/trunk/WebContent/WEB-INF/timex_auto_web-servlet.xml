@@ -26,6 +26,9 @@
 			<props>
 				<prop key="/timesheetlist.htm">timesheetListController</prop>
 				<prop key="/enterhours.htm">timesheetEnterHoursController</prop>
+				<prop key="/printhours.htm">printTimesheetController2</prop>
+				<prop key="/staffhours.htm">staffHoursController</prop>
+				<prop key="/approvetimesheets.htm">approveTimesheetsController</prop>
 			</props>
 		</property>
 	</bean>
@@ -111,11 +114,95 @@
 			<value>redirect:signin.htm</value>
 		</property>
 	</bean>
-	
+	<bean name="printTimesheetController" class="com.timexautoweb.controllers.PrintTimesheetController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.Timesheet</value>
+		</property>
+		<property name="formView">
+			<value>printhours</value>
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="applicationSecurityManager">
+			<ref bean="applicationSecurityManager" />
+		</property>
+	</bean>
+	<bean name="printTimesheetController2" class="com.timexautoweb.controllers.PrintTimesheetController2">
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="applicationSecurityManager">
+			<ref bean="applicationSecurityManager" />
+		</property>
+		<property name="successView">
+			<value>printhours</value>
+		</property>
+	</bean>
+	<bean name="staffHoursController" class="com.timexautoweb.controllers.StaffHoursController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.TimesheetList</value>
+		</property>
+		<property name="formView">
+			<value>staffhours</value>
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="employeeManager">
+			<ref bean="employeeManager" />
+		</property>
+		<property name="applicationSecurityManager">
+			<ref bean="applicationSecurityManager" />
+		</property>
+	</bean>
+	<bean name="approveTimesheetsController" class="com.timexautoweb.controllers.ApproveTimesheetsController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.TimesheetList</value>
+		</property>
+		<property name="formView">
+			<value>approvetimesheets</value>
+		</property>
+		<property name="successView">
+			<value>redirect:staffhours.htm</value>
+		</property>
+		<property name="validator">
+			<ref bean="approveTimesheetsValidator" />
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+		<property name="employeeManager">
+			<ref bean="employeeManager" />
+		</property>
+		<property name="applicationSecurityManager">
+			<ref bean="applicationSecurityManager" />
+		</property>
+		<property name="approvalMessage">
+			<ref bean="approvalEmailMessage" />
+		</property>
+		<property name="disapprovalMessage">
+			<ref bean="disapprovalEmailMessage" />
+		</property>
+		<property name="mailSender">
+			<ref bean="mailSender" />
+		</property>
+	</bean>
+		
 	<!-- Validators -->
 	<bean id="enterHoursValidator" class="com.timexautoweb.controllers.EnterHoursValidator" />
 	<bean id="signinValidator" class="com.timexautoweb.controllers.SignInValidator" />
-
+	<bean id="approveTimesheetsValidator" class="com.timexautoweb.controllers.ApproveTimesheetsValidator" />
+	
 	<!-- Model classes -->
 	<bean id="employeeManager" class="com.timexautoweb.domain.EmployeeHome" />
 	<bean id="timesheetManager" class="com.timexautoweb.domain.TimesheetHome" />
@@ -151,6 +238,16 @@
 		<property name="subject" value="Reminder: Submit Timesheet" />
 		<property name="text"
 			value="Please don't forget to submit your timesheet.  Thank you!" />
+	</bean>
+	<bean id="approvalEmailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="to" value="accounting@me.com" />
+		<property name="subject" value="Timesheet Approved" />
+		<property name="text" value="Timesheet is approved.  Regards." />
+	</bean>
+	<bean id="disapprovalEmailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="subject" value="Timesheet Disapproved" />
+		<property name="text"
+			value="Timesheet is disapproved, please correct hours.  Regards." />
 	</bean>
 	<bean id="reminderEmail" class="com.timexautoweb.jobs.ReminderEmail">
 		<property name="timesheetManager">

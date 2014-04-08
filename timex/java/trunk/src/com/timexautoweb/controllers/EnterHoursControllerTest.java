@@ -2,7 +2,9 @@ package com.timexautoweb.controllers;
 
 import java.util.HashMap;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -10,6 +12,7 @@ import com.timexautoweb.domain.DepartmentHome;
 import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
+import com.timexautoweb.test.EmployeeHomeTest;
 import com.timexautoweb.util.ApplicationSecurityManager;
 
 public class EnterHoursControllerTest extends TestCase {
@@ -86,6 +89,14 @@ public class EnterHoursControllerTest extends TestCase {
 		HashMap h = (HashMap) o;
 		assertTrue(h.containsKey("departments"));
 		assertNotNull(h.get("departments"));
+	}
+
+	public static void main(String args[]) {
+		junit.textui.TestRunner.run(suite());
+	}
+
+	public static Test suite() {
+		return new TestSuite(EnterHoursControllerTest.class);
 	}
 
 }

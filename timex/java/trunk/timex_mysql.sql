@@ -131,16 +131,16 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`id`,`name`,`email`,`employeeType`,`password`,`employee_id`,`username`,`address`,`city`,`state`,`zipcode`,`payrate`,`taxrate`,`registrationDate`) VALUES 
- (1,'Mike Dover','cjacob@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6789','123 Main St','Davie','FL','33314',35.68,20,'2006-07-23 15:00:00'),
- (2,'Ajay Kumar','sbutcher@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-67-1234','234 Main St','Davie','FL','33314',35.68,18,'2006-07-28 19:00:00'),
- (3,'Teresa Walker','cw769@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'123-89-4321','567 Main St','Davie','FL','33314',120000,16,'2007-01-02 16:00:00'),
+ (1,'Mike Dover','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6789','123 Main St','Davie','FL','33314',35.68,20,'2006-07-23 15:00:00'),
+ (2,'Ajay Kumar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-67-1234','234 Main St','Davie','FL','33314',35.68,18,'2006-07-28 19:00:00'),
+ (3,'Teresa Walker','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'123-89-4321','567 Main St','Davie','FL','33314',120000,16,'2007-01-02 16:00:00'),
  (4,'Tom Brady','ealvaro@nova.edu','E','8cb2237d0679ca88db6464eac60da96345513964',4,'123-09-3456','989 Main St','Davie','FL','33314',275000,21,'2007-04-01 08:00:00'),
- (5,'Alvaro E. Escobar','alvaroescobar@live.com','A','8cb2237d0679ca88db6464eac60da96345513964',4,'123-12-7654','999 Main St','Davie','FL','33314',90000,23,'2010-10-27 08:00:00'),
- (9,'John Smith','jsmith@acme.com','H','8cb2237d0679ca88db6464eac60da96345513964',3,'209-56-4854','','','FL','',0,0,'2012-10-27 12:31:42'),
- (11,'Jane Smith','jsmith@acme.com','M','8cb2237d0679ca88db6464eac60da96345513964',4,'209-45-8356','','','GA','',0,0,'2012-10-29 20:15:28'),
- (12,'Alvarito Escobar','alvarito@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6999','123 Main St','Davie','FL','33314',50,30,'2012-12-04 11:00:00'),
- (13,'John Doe','jdoe@hotmail.com','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-8899','123 Main St','Davie','FL','33314',48,30,'2012-12-05 18:21:00'),
- (14,'Jane Doe','janedoe@hotmail.com','H','8cb2237d0679ca88db6464eac60da96345513964',3,'janedoe','123 Main St','Davie','FL','33314',38,22,'2012-12-05 18:58:00');
+ (5,'Alvaro E. Escobar','ealvaro@nova.edu','A','8cb2237d0679ca88db6464eac60da96345513964',4,'123-12-7654','999 Main St','Davie','FL','33314',90000,23,'2010-10-27 08:00:00'),
+ (9,'John Smith','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'209-56-4854','','','FL','',0,0,'2012-10-27 12:31:42'),
+ (11,'Jane Smith','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'209-45-8356','','','GA','',0,0,'2012-10-29 20:15:28'),
+ (12,'Alvarito Escobar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6999','123 Main St','Davie','FL','33314',50,30,'2012-12-04 11:00:00'),
+ (13,'John Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-8899','123 Main St','Davie','FL','33314',48,30,'2012-12-05 18:21:00'),
+ (14,'Jane Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'janedoe','123 Main St','Davie','FL','33314',38,22,'2012-12-05 18:58:00');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 

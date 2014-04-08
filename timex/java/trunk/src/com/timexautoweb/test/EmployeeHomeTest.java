@@ -2,7 +2,9 @@ package com.timexautoweb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import com.timexautoweb.domain.DepartmentHome;
 import com.timexautoweb.domain.Employee;
@@ -13,11 +15,14 @@ public class EmployeeHomeTest extends TestCase {
 	EmployeeHome eh;
 	DepartmentHome dh;
 	Employee employee;
+	Employee manager;
 
 	protected void setUp() throws Exception {
 		super.setUp();
 		eh = new EmployeeHome();
-		this.employee = new Employee(eh.findById(1), "Test Tester", "test@tester.com", Employee.HOURLY, "12345", "tester", "FL", 15.50, 15.50, DateUtil.getCurrentPeriodStartingDate());
+		this.manager = eh.findById(1);
+		this.employee = new Employee(this.manager, "Test Tester", "test@tester.com", Employee.HOURLY, "12345", "tester", "FL", 15.50, 15.50, DateUtil.getCurrentPeriodStartingDate());
+		this.employee.setManagerEmployeeId(this.manager.getId());
 		eh.persist(this.employee);
 	}
 
@@ -72,6 +77,23 @@ public class EmployeeHomeTest extends TestCase {
 		List<Employee> employees = eh.getAllEmployees();
 		assertNotNull("All Employees exists", employees);
 		assertTrue("# of Employees are > 0", employees.size() > 0);
+	}
+
+	/**
+	 * Tests getting all reporting employees for a particular employee id.
+	 */
+	public void testGetReportingEmployees() {
+		List<Employee> employees = eh.getReportingEmployees(this.manager.getId());
+		assertNotNull("All reporting Employees exists", employees);
+		assertTrue("# of reporting Employees are > 0", employees.size() > 0);
+	}
+
+	public static void main(String args[]) {
+		junit.textui.TestRunner.run(suite());
+	}
+
+	public static Test suite() {
+		return new TestSuite(EmployeeHomeTest.class);
 	}
 
 }

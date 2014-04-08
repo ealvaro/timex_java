@@ -1,6 +1,8 @@
 package com.timexautoweb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import com.timexautoweb.domain.Department;
 import com.timexautoweb.domain.DepartmentHome;
@@ -58,6 +60,14 @@ public class DepartmentHomeTest extends TestCase {
 		assertNull(dh.findById(this.dept.getId()));
 		this.dept = new Department("New Department", "PA", null);
 		dh.persist(this.dept);
+	}
+
+	public static void main(String args[]) {
+		junit.textui.TestRunner.run(suite());
+	}
+
+	public static Test suite() {
+		return new TestSuite(DepartmentHomeTest.class);
 	}
 
 }

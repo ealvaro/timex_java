@@ -37,17 +37,19 @@
 						title="All Paid Timesheets"><b>P</b>aid Timesheets</a></li>
 					<c:if
 						test="${employee.employeeType == 'M' || employee.employeeType == 'E'}">
-						<li><a href="approvetimesheets.html" accesskey="P"
+						<li><a href="approvetimesheets.htm" accesskey="P"
 							title="Approve Timesheet Payments"><b>A</b>pprove Timesheets</a>
 						</li>
 					</c:if>
 				</ul></li>
-			<li><a href="printhours.html" accesskey="T"
+			<li><a href="#" accesskey="T"
 				title="Employee Timesheet Report"><b>R</b>eports</a>
 				<ul>
+					<li><a href="printhours.htm" accesskey="T"
+						title="Employee Timesheet Report"><b>T</b>imesheet Report</a></li>
 					<c:if
 						test="${employee.employeeType == 'M' || employee.employeeType == 'E'}">
-						<li><a href="staffhours.html" accesskey="S"
+						<li><a href="staffhours.htm" accesskey="S"
 							title="view a summary of a given week's hours for all employees"><b>S</b>taff
 								Hours Report</a></li>
 					</c:if>
