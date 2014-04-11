@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.util.ApplicationSecurityManager;
+import com.timexautoweb.util.PasswordUtil;
 
 /**
  * Controller for the Sign In screen.
@@ -33,7 +34,7 @@ public class SignInController extends SimpleFormController {
 	 * 
 	 * @see Employee
 	 */
-	protected Object formBackingObject(HttpServletRequest request) {
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		return new Employee();
 	}
 
@@ -66,7 +67,7 @@ public class SignInController extends SimpleFormController {
 		if (formEmployee.getId() == null || (dbEmployee = employeeManager.findById(formEmployee.getId())) == null)
 			errors.reject("error.login.invalid");
 		else {
-			if (encryptPassword(formEmployee.getPassword()).equals(dbEmployee.getPassword())) {
+			if (PasswordUtil.encryptPassword(formEmployee.getPassword()).equals(dbEmployee.getPassword())) {
 				applicationSecurityManager.setEmployee(request, dbEmployee);
 			} else {
 				errors.reject("error.login.invalid");
@@ -94,34 +95,5 @@ public class SignInController extends SimpleFormController {
 
 	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
 		this.applicationSecurityManager = applicationSecurityManager;
-	}
-
-	/**
-	 * This method will allow us to encrypt passwords in the database
-	 * 
-	 */
-	private static String encryptPassword(String password) {
-		String sha1 = "";
-		try {
-			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-			crypt.reset();
-			crypt.update(password.getBytes("UTF-8"));
-			sha1 = byteToHex(crypt.digest());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return sha1;
-	}
-
-	private static String byteToHex(final byte[] hash) {
-		Formatter formatter = new Formatter();
-		for (byte b : hash) {
-			formatter.format("%02x", b);
-		}
-		String result = formatter.toString();
-		formatter.close();
-		return result;
 	}
 }

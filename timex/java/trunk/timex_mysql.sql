@@ -56,7 +56,7 @@ CREATE TABLE `departments` (
   `name` varchar(255) NOT NULL,
   `state` varchar(2) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `departments`
@@ -121,26 +121,29 @@ CREATE TABLE `employees` (
   `payrate` double unsigned NOT NULL,
   `taxrate` double unsigned NOT NULL,
   `registrationDate` datetime NOT NULL,
+  `pictureFilename` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_employees_1` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees`
 --
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` (`id`,`name`,`email`,`employeeType`,`password`,`employee_id`,`username`,`address`,`city`,`state`,`zipcode`,`payrate`,`taxrate`,`registrationDate`) VALUES 
- (1,'Mike Dover','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6789','123 Main St','Davie','FL','33314',35.68,20,'2006-07-23 15:00:00'),
- (2,'Ajay Kumar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-67-1234','234 Main St','Davie','FL','33314',35.68,18,'2006-07-28 19:00:00'),
- (3,'Teresa Walker','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'123-89-4321','567 Main St','Davie','FL','33314',120000,16,'2007-01-02 16:00:00'),
- (4,'Tom Brady','ealvaro@nova.edu','E','8cb2237d0679ca88db6464eac60da96345513964',4,'123-09-3456','989 Main St','Davie','FL','33314',275000,21,'2007-04-01 08:00:00'),
- (5,'Alvaro E. Escobar','ealvaro@nova.edu','A','8cb2237d0679ca88db6464eac60da96345513964',4,'123-12-7654','999 Main St','Davie','FL','33314',90000,23,'2010-10-27 08:00:00'),
- (9,'John Smith','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'209-56-4854','','','FL','',0,0,'2012-10-27 12:31:42'),
- (11,'Jane Smith','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'209-45-8356','','','GA','',0,0,'2012-10-29 20:15:28'),
- (12,'Alvarito Escobar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6999','123 Main St','Davie','FL','33314',50,30,'2012-12-04 11:00:00'),
- (13,'John Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-8899','123 Main St','Davie','FL','33314',48,30,'2012-12-05 18:21:00'),
- (14,'Jane Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'janedoe','123 Main St','Davie','FL','33314',38,22,'2012-12-05 18:58:00');
+INSERT INTO `employees` (`id`,`name`,`email`,`employeeType`,`password`,`employee_id`,`username`,`address`,`city`,`state`,`zipcode`,`payrate`,`taxrate`,`registrationDate`,`pictureFilename`) VALUES 
+ (1,'Mike Dover','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6789','123 Main St','Davie','FL','33314',35.68,20,'2006-07-23 15:00:00','2013-04-03 19.05.17.1.jpg'),
+ (2,'Ajay Kumar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-67-1234','234 Main St','Davie','FL','33314',35.68,18,'2006-07-28 19:00:00','2013-04-03 19.09.35.616.png'),
+ (3,'Teresa Walker','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'123-89-4321','567 Main St','Davie','FL','33314',120000,16,'2007-01-02 16:00:00','2013-04-03 19.09.35.616.png'),
+ (4,'Tom Brady','ealvaro@nova.edu','E','8cb2237d0679ca88db6464eac60da96345513964',4,'123-09-3456','989 Main St','Davie','FL','33314',275000,21,'2007-04-01 08:00:00','2013-04-03 19.09.35.616.png'),
+ (5,'Alvaro E. Escobar','ealvaro@nova.edu','A','8cb2237d0679ca88db6464eac60da96345513964',4,'123-12-7654','999 Main St','Davie','FL','33314',90000,23,'2010-10-27 08:00:00','2013-04-03 19.04.12.116.JPG'),
+ (9,'John Smith','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'209-56-4854','','','FL','',0,0,'2012-10-27 12:31:42','2013-04-03 19.09.35.616.png'),
+ (11,'Jane Smith','ealvaro@nova.edu','M','8cb2237d0679ca88db6464eac60da96345513964',4,'209-45-8356','','','GA','',0,0,'2012-10-29 20:15:28','2013-04-03 19.09.35.616.png'),
+ (12,'Alvarito Escobar','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-6999','123 Main St','Davie','FL','33314',50,30,'2012-12-04 11:00:00','2013-04-03 19.09.35.616.png'),
+ (13,'John Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'123-45-8899','123 Main St','Davie','FL','33314',48,30,'2012-12-05 18:21:00','2013-04-03 19.09.35.616.png'),
+ (14,'Jane Doe','ealvaro@nova.edu','H','8cb2237d0679ca88db6464eac60da96345513964',3,'janedoe','123 Main St','Davie','FL','33314',38,22,'2012-12-05 18:58:00','2013-04-03 19.09.35.616.png'),
+ (16,'Leilani Escobar','leilani@nova.edu','\0','7c222fb2927d828af22f592134e8932480637c0d',5,'123-45-6788','','','FL','',15,15,'2013-04-03 10:47:14','2013-04-03 10.47.14.921.png'),
+ (17,'Joe Adams','joe@acme.com','\0','8cb2237d0679ca88db6464eac60da96345513964',3,'987-75-3456','123 Main St','Davie','FL','33314',15,15,'2013-04-03 20:29:19','2013-04-03 20.29.19.678.jpg');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 
@@ -239,7 +242,7 @@ CREATE TABLE `timesheets` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_timesheets_1` (`employee_id`),
   KEY `FK_timesheets_2` (`department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timesheets`
@@ -251,19 +254,23 @@ INSERT INTO `timesheets` (`id`,`employee_id`,`statusCode`,`periodEndingDate`,`de
  (2,1,'C','2006-08-19',3,480,480,480,480,480,0,0),
  (3,1,'A','2010-01-31',2,480,480,480,600,600,0,0),
  (4,1,'A','2010-02-21',1,480,480,480,240,240,0,0),
- (5,1,'S','2010-02-28',4,420,360,480,360,360,420,0),
+ (5,1,'A','2010-02-28',4,420,360,480,360,360,420,0),
  (6,3,'C','2010-03-21',2,480,480,480,480,480,0,0),
- (7,1,'S','2010-03-21',4,480,480,480,240,420,120,0),
- (8,1,'S','2010-03-28',4,480,480,480,480,480,0,0),
- (9,2,'S','2010-03-28',1,480,480,48,480,480,0,0),
+ (7,1,'A','2010-03-21',4,480,480,480,240,420,120,0),
+ (8,1,'D','2010-03-28',4,480,480,480,480,480,0,0),
+ (9,2,'D','2010-03-28',1,480,480,48,480,480,0,0),
  (10,4,'C','2010-05-02',2,480,480,480,480,480,0,0),
  (11,3,'A','2010-05-02',2,300,300,300,300,300,0,0),
  (18,1,'A','2012-02-26',4,360,360,240,360,0,0,0),
  (19,5,'C','2012-03-25',4,480,480,480,480,480,240,0),
  (20,14,'A','2012-04-08',4,240,240,540,540,0,0,0),
- (37,3,'P','2012-04-08',3,420,480,480,420,0,0,0),
+ (37,3,'S','2012-04-08',3,420,480,480,420,0,0,0),
  (38,2,'A','2012-04-08',2,420,360,300,240,0,0,0),
- (39,1,'P','2013-03-24',2,480,480,480,480,480,0,0);
+ (39,1,'P','2013-03-24',2,480,480,480,480,480,0,0),
+ (52,1,'P','2013-03-24',2,420,420,420,0,0,0,0),
+ (53,1,'P','2013-03-24',4,480,480,480,0,0,0,0),
+ (54,3,'P','2013-03-24',1,480,480,480,240,0,0,0),
+ (55,5,'P','2013-04-07',1,480,480,480,0,0,0,0);
 /*!40000 ALTER TABLE `timesheets` ENABLE KEYS */;
 
 

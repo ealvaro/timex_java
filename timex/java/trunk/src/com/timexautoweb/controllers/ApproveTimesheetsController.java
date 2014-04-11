@@ -1,6 +1,8 @@
 package com.timexautoweb.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -66,6 +68,18 @@ public class ApproveTimesheetsController extends SimpleFormController {
 	 */
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(String.class, new YesNoPropertyEditor());
+	}
+
+	/**
+	 * Returns Hashmap containing a list of all Department database records.
+	 * 
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 */
+	@SuppressWarnings("unchecked")
+	protected Map referenceData(HttpServletRequest request) throws Exception {
+		HashMap model = new HashMap();
+		model.put("employee", (Employee)applicationSecurityManager.getEmployee(request));
+		return model;
 	}
 
 	/**

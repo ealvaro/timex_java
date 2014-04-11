@@ -32,7 +32,13 @@ public class SignInControllerTest extends TestCase {
 		// Someone that is not login tries to login
 		mockHttpServletRequest = new MockHttpServletRequest("GET", "/signin.htm");
 		applicationSecurityManager.removeEmployee(mockHttpServletRequest);
-		Object o = signInController.formBackingObject(mockHttpServletRequest);
+		Object o = null;
+		try {
+			o = signInController.formBackingObject(mockHttpServletRequest);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertNotNull(o);
 		Employee employee = (Employee)o;
 		

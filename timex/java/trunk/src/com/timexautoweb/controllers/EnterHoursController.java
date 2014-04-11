@@ -68,9 +68,6 @@ public class EnterHoursController extends SimpleFormController {
 	 */
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(Integer.class, new MinutesPropertyEditor());
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-//		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-//		binder.registerCustomEditor(Date.class, editor);
 	}
 
 	/**
@@ -82,6 +79,7 @@ public class EnterHoursController extends SimpleFormController {
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		HashMap model = new HashMap();
 		model.put("departments", departmentManager.getDepartments());
+		model.put("employee", (Employee)applicationSecurityManager.getEmployee(request));
 		return model;
 	}
 

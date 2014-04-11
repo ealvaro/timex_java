@@ -41,17 +41,19 @@
 									</p> <br />
 									<tr>
 										<td>&nbsp;</td>
+										<td rowspan="2"><img src="${fileURL}${employee.pictureFilename}" height="80" width="60" /></td>
 									</tr>
 									<tr>
-										<td colspan="2">
-											<div align="center">
+										<td>
+											<div align="left">
 												Employee :
 												<c:out value="${employee.name}" />
 											</div>
-											<div align="center">
+											<div align="left">
 												Type :
 												<c:out value="${employee.employeeType}" />
-											</div></td>
+											</div>
+										</td>
 									</tr>
 									<p></p>
 									<table border="0" align="center" cellpadding="8"
@@ -65,13 +67,12 @@
 										</tr>
 										<c:forEach items="${timesheetsJSPVar}" var="t">
 											<tr>
-												<td align="center"><c:if
-														test="${t.statusCode == 'P' || t.statusCode == 'D'}">
+												<td align="center"><c:if test="${t.statusCode == 80 || t.statusCode == 68}"> <!-- P or D -->
 														<a
 															href='enterhours.htm?tid=<c:out value="${t.id}"/>'>
 															<fmt:formatDate value="${t.periodEndingDate}" type="date"
 																pattern="MM/dd/yyyy" /> </a>
-													</c:if> <c:if test="${t.statusCode == 'A' || t.statusCode == 'S'}">
+													</c:if> <c:if test="${t.statusCode == 65 || t.statusCode == 83}"> <!-- A or S -->
 														<a
 															href='printhours.htm?tid=<c:out value="${t.id}"/>'>
 															<fmt:formatDate value="${t.periodEndingDate}" type="date"
@@ -106,7 +107,5 @@
 
 		<jsp:include page="../../footer.jsp"/>
 		
-</body>
-</html>
 </body>
 </html>

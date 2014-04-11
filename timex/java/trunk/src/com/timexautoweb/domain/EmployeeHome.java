@@ -1,4 +1,5 @@
 package com.timexautoweb.domain;
+
 // Generated Feb 13, 2013 6:38:59 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.List;
@@ -15,6 +16,7 @@ import com.timexautoweb.util.HibernateUtil;
 
 /**
  * Home object for domain model class Employee.
+ * 
  * @see .Employee
  * @author Hibernate Tools
  */
@@ -114,7 +116,8 @@ public class EmployeeHome {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Employee instance = (Employee) getSessionFactory().getCurrentSession().get("com.timexautoweb.domain.Employee", id);
+			Employee instance = (Employee) getSessionFactory().getCurrentSession().get(
+					"com.timexautoweb.domain.Employee", id);
 			session.getTransaction().commit();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -124,7 +127,11 @@ public class EmployeeHome {
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
-			session.getTransaction().rollback();
+			try {
+				session.getTransaction().rollback();
+			} catch (HibernateException he) {
+
+			}
 			throw re;
 		}
 	}
@@ -163,6 +170,7 @@ public class EmployeeHome {
 		}
 		return employeeList;
 	}
+
 	/**
 	 * Returns list of all Employee records reporting to Employee with given
 	 * employeeId.
@@ -183,4 +191,43 @@ public class EmployeeHome {
 		return employeeList;
 	}
 
+	/**
+	 * Returns list of all managers and executives.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Employee> getManagers() {
+		List<Employee> managersList = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			managersList = session.createQuery(
+					"from Employee WHERE employeeCode='" + Employee.MANAGER + "' OR employeeCode='"
+							+ Employee.EXECUTIVE + "' ORDER BY name").list();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return managersList;
+	}
+
+	/**
+	 * Returns Employee with the given user name passed as a parameter.
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public Employee findByUsername(String userName) {
+		Employee employee = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			employee = (Employee) session.createQuery("from Employee WHERE username = ?").setString(0, userName)
+					.uniqueResult();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return employee;
+	}
 }
