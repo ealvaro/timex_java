@@ -23,6 +23,7 @@ public class TimesheetListController implements Controller {
 
 	public static final String MAP_KEY = "timesheetsJSPVar";
 	public static final String EMP_KEY = "employee";
+	private String uploadFileURL = "http://localhost/uploads";
 	private ApplicationSecurityManager applicationSecurityManager;
 
 	private TimesheetHome timesheetManager;
@@ -38,8 +39,8 @@ public class TimesheetListController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Employee myEmp = (Employee) applicationSecurityManager.getEmployee(request);
 		List<Timesheet> timesheets = timesheetManager.getTimesheets(myEmp.getId());
-		logger.debug("Showing timesheets for employee id = " + 1);
-		return new ModelAndView(getSuccessView(), MAP_KEY, timesheets).addObject(EMP_KEY, myEmp);
+		logger.debug("Showing timesheets for employee id = " + myEmp.getId());
+		return new ModelAndView(getSuccessView(), MAP_KEY, timesheets).addObject(EMP_KEY, myEmp).addObject("fileURL", this.uploadFileURL);
 	}
 
 	public TimesheetHome getTimesheetManager() {
@@ -64,6 +65,14 @@ public class TimesheetListController implements Controller {
 
 	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
 		this.applicationSecurityManager = applicationSecurityManager;
+	}
+
+	public String getUploadFileURL() {
+		return uploadFileURL;
+	}
+
+	public void setUploadFileURL(String uploadFileURL) {
+		this.uploadFileURL = uploadFileURL;
 	}
 
 

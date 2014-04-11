@@ -23,10 +23,10 @@
 				<li><a href="signout.htm" accesskey="L" title="Logout"><b>L</b>ogout</a>
 				</li>
 			</c:if>
-			<li><a href="registration.html" accesskey="R"
+			<li><a href="registration.htm" accesskey="R"
 				title="Employee Registration"><b>R</b>egister</a>
 			</li>
-			<li><a href="timesheetlist.htm" accesskey="T"
+			<li><a href="#" accesskey="T"
 				title="Employee Timesheets"><b>T</b>imesheets</a>
 				<ul>
 					<li><a href="enterhours.htm" accesskey="N"
@@ -35,8 +35,7 @@
 						title="All Unpaid Timesheets"><b>U</b>npaid Timesheets</a></li>
 					<li><a href="printpaycheck.html" accesskey="P"
 						title="All Paid Timesheets"><b>P</b>aid Timesheets</a></li>
-					<c:if
-						test="${employee.employeeType == 'M' || employee.employeeType == 'E'}">
+					<c:if test="${employee.employeeType == 77 || employee.employeeType == 69}"> <!-- M or E -->
 						<li><a href="approvetimesheets.htm" accesskey="P"
 							title="Approve Timesheet Payments"><b>A</b>pprove Timesheets</a>
 						</li>
@@ -47,19 +46,18 @@
 				<ul>
 					<li><a href="printhours.htm" accesskey="T"
 						title="Employee Timesheet Report"><b>T</b>imesheet Report</a></li>
-					<c:if
-						test="${employee.employeeType == 'M' || employee.employeeType == 'E'}">
+					<c:if test="${employee.employeeType == 77 || employee.employeeType == 69}"> <!-- M or E -->
 						<li><a href="staffhours.htm" accesskey="S"
 							title="view a summary of a given week's hours for all employees"><b>S</b>taff
 								Hours Report</a></li>
 					</c:if>
-					<c:if test="${employee.employeeType == 'E'}">
-						<li><a href="overallsummary.html" accesskey="O"
+					<c:if test="${employee.employeeType == 69}"><!-- E -->
+						<li><a href="overallsummary.htm" accesskey="O"
 							title="view a summary of a given week's hours for all employees per Manager."><b>O</b>verall
 								Summary Report</a></li>
 					</c:if>
-					<c:if test="${employee.employeeType == 'A'}">
-						<li><a href="markpaid.html" accesskey="P"
+					<c:if test="${employee.employeeType == 65}"><!-- A -->
+						<li><a href="markpaid.htm" accesskey="P"
 							title="pay this	week's hours for all employees"><b>P</b>ay
 								Timesheets</a></li>
 					</c:if>

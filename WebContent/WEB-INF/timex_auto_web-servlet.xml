@@ -12,7 +12,8 @@
 			<props>
 				<prop key="/signin.htm">signinController</prop>
 				<prop key="/signout.htm">signoutController</prop>
-			</props>
+				<prop key="/registration.htm">registrationController</prop>
+							</props>
 		</property>
 	</bean>
 	<bean id="urlMapAuthenticate"
@@ -29,6 +30,8 @@
 				<prop key="/printhours.htm">printTimesheetController2</prop>
 				<prop key="/staffhours.htm">staffHoursController</prop>
 				<prop key="/approvetimesheets.htm">approveTimesheetsController</prop>
+				<prop key="/overallsummary.htm">managerSummaryController</prop>
+				<prop key="/markpaid.htm">accountingController</prop>
 			</props>
 		</property>
 	</bean>
@@ -53,6 +56,7 @@
 		<property name="applicationSecurityManager">
 			<ref bean="applicationSecurityManager" />
 		</property>
+        <property name="uploadFileURL" value="http://localhost/timex_php/uploads/"></property>
 	</bean>
 	<bean name="timesheetEnterHoursController" class="com.timexautoweb.controllers.EnterHoursController">
 		<property name="sessionForm">
@@ -198,7 +202,60 @@
 		</property>
 	</bean>
 		
-	<!-- Validators -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+    <bean name="registrationController" class="com.timexautoweb.controllers.RegistrationController">
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.Employee</value>
+		</property>
+		<property name="formView">
+			<value>registration</value>
+		</property>
+		<property name="successView">
+			<value>redirect:signin.htm</value>
+		</property>
+		<property name="employeeManager">
+			<ref bean="employeeManager" />
+		</property>
+        <property name="uploadFileSystemPath" value="C:\\php-projects\\timex_php\\uploads\\"></property>
+        <property name="uploadFileURL" value="http://localhost/timex_php/uploads/"></property>
+	</bean>
+	<bean name="managerSummaryController" class="com.timexautoweb.controllers.ManagerSummaryController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.ManagerSummaryList</value>
+		</property>
+		<property name="formView">
+			<value>overallsummary</value>
+		</property>
+		<property name="employeeManager">
+			<ref bean="employeeManager" />
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+	</bean>
+	<bean name="accountingController" class="com.timexautoweb.controllers.AccountingController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandClass">
+			<value>com.timexautoweb.domain.TimesheetList</value>
+		</property>
+		<property name="formView">
+			<value>markpaid</value>
+		</property>
+		<property name="successView">
+			<value>redirect:timesheetlist.htm</value>
+		</property>
+		<property name="timesheetManager">
+			<ref bean="timesheetManager" />
+		</property>
+	</bean>
+				
+		<!-- Validators -->
 	<bean id="enterHoursValidator" class="com.timexautoweb.controllers.EnterHoursValidator" />
 	<bean id="signinValidator" class="com.timexautoweb.controllers.SignInValidator" />
 	<bean id="approveTimesheetsValidator" class="com.timexautoweb.controllers.ApproveTimesheetsValidator" />

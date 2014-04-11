@@ -39,7 +39,7 @@ public class TimesheetHome {
 		Session session = getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.persist(transientInstance);
+			session.saveOrUpdate(transientInstance);
 			log.debug("persist successful");
 			session.getTransaction().commit();
 
@@ -207,4 +207,25 @@ public class TimesheetHome {
 		}
 		return timesheet;
 	}
+
+	/**
+	 * Returns list of all timesheets that have specified status code, sorted by
+	 * timesheetId.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Timesheet> getTimesheets(char statusCode) {
+		List<Timesheet> timesheetList = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			timesheetList = session.createQuery("from Timesheet where statusCode = ? ORDER BY Id")
+					.setCharacter(0, statusCode).list();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return timesheetList;
+	}
+
 }
