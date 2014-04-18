@@ -13,7 +13,21 @@
 				<prop key="/signin.htm">signinController</prop>
 				<prop key="/signout.htm">signoutController</prop>
 				<prop key="/registration.htm">registrationController</prop>
-							</props>
+			</props>
+		</property>
+	</bean>
+	<bean id="urlMobileMapAuthenticate"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="httpRequestInterceptor" />
+			    <ref bean="androidRequestInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<props>
+				<prop key="/timesheetlist.htm">timesheetListController</prop>
+			</props>
 		</property>
 	</bean>
 	<bean id="urlMapAuthenticate"
@@ -25,7 +39,6 @@
 		</property>
 		<property name="urlMap">
 			<props>
-				<prop key="/timesheetlist.htm">timesheetListController</prop>
 				<prop key="/enterhours.htm">timesheetEnterHoursController</prop>
 				<prop key="/printhours.htm">printTimesheetController2</prop>
 				<prop key="/staffhours.htm">staffHoursController</prop>
@@ -36,6 +49,15 @@
 		</property>
 	</bean>
 	<!-- Interceptors -->
+	<bean id="androidRequestInterceptor" class="com.timexautoweb.controllers.AndroidRequestInterceptor"
+		init-method="init">
+		<property name="mobileUserAgents">
+			<list>
+				<value>.*(Android).*</value>
+				<value>.*(Apache).*</value>
+			</list>
+		</property>
+	</bean>
 		<bean id="httpRequestInterceptor" class="com.timexautoweb.controllers.HttpRequestInterceptor">
 		<property name="signInPage">
 			<value>signin.htm</value>
@@ -47,10 +69,13 @@
 	
 	<!-- Controllers -->
 	<bean name="timesheetListController" class="com.timexautoweb.controllers.TimesheetListController">
+		<property name="xmlView">
+			<ref bean="xmlView" />
+		</property>
 		<property name="timesheetManager">
 			<ref bean="timesheetManager" />
 		</property>
-		<property name="successView">
+				<property name="successView">
 			<value>timesheetlist</value>
 		</property>
 		<property name="applicationSecurityManager">
@@ -267,18 +292,47 @@
 
 	<!-- Utility classes -->
 	<bean id="applicationSecurityManager" class="com.timexautoweb.util.ApplicationSecurityManager" />
-
+	<bean id="xmlView" class="com.timexautoweb.view.XMLView" />
+	
 	<!-- View Resolver -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass">
-			<value>org.springframework.web.servlet.view.JstlView</value>
+	<bean id="ViewContentResolver"
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="xml" value="text/xml" />
+				<entry key="json" value="application/json" />
+			</map>
 		</property>
-		<property name="prefix">
-			<value>/WEB-INF/jsp/</value>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.JstlView" />
+					<property name="order" value="1" />
+					<property name="prefix" value="/WEB-INF/jsp/" />
+					<property name="suffix" value=".jsp" />
+				</bean>
+				<bean id="xmlViewResolver"
+					class="org.springframework.web.servlet.view.xslt.XsltViewResolver">
+					<property name="order" value="0" />
+					<property name="prefix" value="/WEB-INF/xsl/" />
+					<property name="suffix" value=".xsl" />					
+					<property name="viewNames">
+						<list>
+							<value>*-mobile</value>
+						</list>
+					</property>
+				</bean>
+			</list>
 		</property>
-		<property name="suffix">
-			<value>.jsp</value>
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+					<property name="prefixJson" value="true" />
+				</bean>
+			</list>
 		</property>
 	</bean>
 
