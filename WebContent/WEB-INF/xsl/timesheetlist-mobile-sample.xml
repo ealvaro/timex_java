@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="timesheetlist-mobile.xsl"?>
+<timesheets>
+	<timesheet>
+		<timesheetid>4</timesheetid>
+		<periodEndingDate>02-21-2010</periodEndingDate>
+		<statusCode>A</statusCode>
+	</timesheet>
+	<timesheet>
+		<timesheetid>5</timesheetid>
+		<periodEndingDate>02-28-2010</periodEndingDate>
+		<statusCode>A</statusCode>
+	</timesheet>
+	<timesheet>
+		<timesheetid>7</timesheetid>
+		<periodEndingDate>03-21-2010</periodEndingDate>
+		<statusCode>A</statusCode>
+	</timesheet>
+	<timesheet>
+		<timesheetid>8</timesheetid>
+		<periodEndingDate>03-28-2010</periodEndingDate>
+		<statusCode>P</statusCode>
+	</timesheet>
+</timesheets>
