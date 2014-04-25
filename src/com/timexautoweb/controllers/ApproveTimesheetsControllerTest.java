@@ -26,12 +26,14 @@ import com.timexautoweb.domain.TimesheetList;
 import com.timexautoweb.test.TimesheetHomeTest;
 import com.timexautoweb.util.ApplicationSecurityManager;
 import com.timexautoweb.util.DateUtil;
+import com.timexautoweb.util.TimexJmxBean;
 
 public class ApproveTimesheetsControllerTest extends TestCase {
 	private MockHttpServletRequest request = new MockHttpServletRequest();
 	private MockHttpServletResponse response = new MockHttpServletResponse();
 	private ApproveTimesheetsController approveTimesheetsController = null;
 	private ApplicationSecurityManager applicationSecurityManager = null;
+	private TimexJmxBean timexJmxBean = null;
 	private EmployeeHome employeeManager = new EmployeeHome();
 	private TimesheetHome timesheetManager = new TimesheetHome();
 	Employee employee;
@@ -56,12 +58,14 @@ public class ApproveTimesheetsControllerTest extends TestCase {
 
 		applicationSecurityManager = new ApplicationSecurityManager();
 		approveTimesheetsController = new ApproveTimesheetsController();
+		timexJmxBean = new TimexJmxBean();
 		approveTimesheetsController.setTimesheetManager(timesheetManager);
 		approveTimesheetsController.setEmployeeManager(employeeManager);
 		approveTimesheetsController.setApplicationSecurityManager(applicationSecurityManager);
 		approveTimesheetsController.setCommandClass(TimesheetList.class);
 		approveTimesheetsController.setSuccessView("redirect:staffhours.htm");
 		approveTimesheetsController.setValidator(new ApproveTimesheetsValidator());
+		approveTimesheetsController.setTimexJmxBean(timexJmxBean);
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("hr@hr.com");
 		approveTimesheetsController.setApprovalMessage(message);
