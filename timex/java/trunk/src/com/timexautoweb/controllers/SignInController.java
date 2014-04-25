@@ -1,9 +1,5 @@
 package com.timexautoweb.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +15,7 @@ import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.EmployeeHome;
 import com.timexautoweb.util.ApplicationSecurityManager;
 import com.timexautoweb.util.PasswordUtil;
-
+import com.timexautoweb.util.TimexJmxBean;
 /**
  * Controller for the Sign In screen.
  * 
@@ -28,6 +24,7 @@ import com.timexautoweb.util.PasswordUtil;
 public class SignInController extends SimpleFormController {
 	private EmployeeHome employeeManager;
 	private ApplicationSecurityManager applicationSecurityManager;
+    private TimexJmxBean timexJmxBean;
 
 	/**
 	 * Always returns a new Employee object
@@ -68,6 +65,7 @@ public class SignInController extends SimpleFormController {
 			errors.reject("error.login.invalid");
 		else {
 			if (PasswordUtil.encryptPassword(formEmployee.getPassword()).equals(dbEmployee.getPassword())) {
+				timexJmxBean.setSignInCount(timexJmxBean.getSignInCount() + 1);
 				applicationSecurityManager.setEmployee(request, dbEmployee);
 			} else {
 				errors.reject("error.login.invalid");
@@ -96,4 +94,13 @@ public class SignInController extends SimpleFormController {
 	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
 		this.applicationSecurityManager = applicationSecurityManager;
 	}
+
+	public TimexJmxBean getTimexJmxBean() {
+		return timexJmxBean;
+	}
+
+	public void setTimexJmxBean(TimexJmxBean timexJmxBean) {
+		this.timexJmxBean = timexJmxBean;
+	}
+
 }

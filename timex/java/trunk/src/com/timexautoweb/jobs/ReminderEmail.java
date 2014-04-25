@@ -3,6 +3,9 @@ package com.timexautoweb.jobs;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.mail.MailException;
@@ -23,6 +26,7 @@ public class ReminderEmail {
 	private EmployeeHome employeeManager;
 	private MailSender mailSender;
 	private SimpleMailMessage employeeReminderMessage;
+	private SimpleMailMessage managerReminderMessage;
 	private TimesheetHome timesheetManager;
 	private static final Logger logger = Logger.getLogger(ReminderEmail.class.getName());
 
@@ -70,6 +74,29 @@ public class ReminderEmail {
 		return emailAddressesList;
 	}
 
+	/**
+	 * Send reminder email to managers who have timesheets pending approval.
+	 */
+	public void sendManagerReminderMail() {
+		List<Timesheet> timesheets = timesheetManager.getTimesheets(Timesheet.PENDING);
+		if (timesheets == null || timesheets.size() < 1)
+			return;
+
+		Set<Integer> toRemind = new TreeSet<Integer>();
+		for (Timesheet t : timesheets) {
+			toRemind.add(t.getEmployee().getManagerEmployeeId());
+		}
+		for (Integer employeeId : toRemind) {
+			managerReminderMessage.setTo(employeeManager.findById(employeeId).getEmail());
+			SimpleMailMessage threadSafeMailMessage = new SimpleMailMessage(managerReminderMessage);
+			try {
+				mailSender.send(threadSafeMailMessage);
+			} catch (MailException e) {
+				logger.log(Level.ALL, "Send email failure: from " + threadSafeMailMessage.getFrom() + ", to "
+						+ threadSafeMailMessage.getTo());
+			}
+		}
+	}
 	public EmployeeHome getEmployeeManager() {
 		return employeeManager;
 	}
@@ -94,6 +121,13 @@ public class ReminderEmail {
 		this.employeeReminderMessage = employeeReminderMessage;
 	}
 
+	public SimpleMailMessage getManagerReminderMessage() {
+		return managerReminderMessage;
+	}
+
+	public void setManagerReminderMessage(SimpleMailMessage managerReminderMessage) {
+		this.managerReminderMessage = managerReminderMessage;
+	}
 	public TimesheetHome getTimesheetManager() {
 		return timesheetManager;
 	}

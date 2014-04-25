@@ -1,31 +1,21 @@
 package com.timexautoweb.controllers;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
 
 import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.util.ApplicationSecurityManager;
+import com.timexautoweb.util.TimexJmxBean;
 import com.timexautoweb.view.XMLView;
-
 /**
  * Controller for the Timesheet List screen.
  * 
@@ -43,6 +33,7 @@ public class TimesheetListController implements Controller {
 	private TimesheetHome timesheetManager;
 	private String successView;
 
+	private TimexJmxBean timexJmxBean;
 	private static final Logger logger = Logger.getLogger(TimesheetListController.class);
 
 	/**
@@ -53,6 +44,7 @@ public class TimesheetListController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Employee myEmp = (Employee) applicationSecurityManager.getEmployee(request);
 		List<Timesheet> timesheets = timesheetManager.getTimesheets(myEmp.getId());
+		timexJmxBean.setTimesheetsFetched(timexJmxBean.getTimesheetsFetched() + timesheets.size());
 		logger.debug("Showing timesheets for employee id = " + myEmp.getId());
 		ModelAndView model = new ModelAndView(getSuccessView(), MAP_KEY, timesheets).addObject(EMP_KEY, myEmp).addObject("fileURL", this.uploadFileURL);
 		Source timesheetsXml = null;
@@ -99,6 +91,12 @@ public class TimesheetListController implements Controller {
 	public void setUploadFileURL(String uploadFileURL) {
 		this.uploadFileURL = uploadFileURL;
 	}
+	public TimexJmxBean getTimexJmxBean() {
+		return timexJmxBean;
+	}
 
+	public void setTimexJmxBean(TimexJmxBean timexJmxBean) {
+		this.timexJmxBean = timexJmxBean;
+	}
 
 }

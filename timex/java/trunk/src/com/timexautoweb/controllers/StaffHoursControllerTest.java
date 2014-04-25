@@ -14,12 +14,14 @@ import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.domain.TimesheetList;
 import com.timexautoweb.util.ApplicationSecurityManager;
 import com.timexautoweb.util.DateUtil;
+import com.timexautoweb.util.TimexJmxBean;
 
 public class StaffHoursControllerTest extends TestCase {
 	private MockHttpServletRequest request = new MockHttpServletRequest();
 	private MockHttpServletResponse response = new MockHttpServletResponse();
 	private StaffHoursController staffHoursController = null;
 	private ApplicationSecurityManager applicationSecurityManager = null;
+	private TimexJmxBean timexJmxBean = null;
 	private EmployeeHome employeeManager = new EmployeeHome();
 	private TimesheetHome timesheetManager = new TimesheetHome();
 	Employee employee;
@@ -43,12 +45,14 @@ public class StaffHoursControllerTest extends TestCase {
 		timesheetManager.persist(this.timesheet);
 
 		applicationSecurityManager = new ApplicationSecurityManager();
+		timexJmxBean = new TimexJmxBean();
 		staffHoursController = new StaffHoursController();
 		staffHoursController.setTimesheetManager(timesheetManager);
 		staffHoursController.setEmployeeManager(employeeManager);
 		staffHoursController.setApplicationSecurityManager(applicationSecurityManager);
 		staffHoursController.setCommandClass(TimesheetList.class);
 		staffHoursController.setFormView("staffhours");
+		staffHoursController.setTimexJmxBean(timexJmxBean);
 	}
 
 	protected void tearDown() throws Exception {

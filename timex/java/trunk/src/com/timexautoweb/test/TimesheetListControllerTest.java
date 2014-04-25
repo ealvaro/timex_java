@@ -17,6 +17,8 @@ import com.timexautoweb.domain.Employee;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.util.ApplicationSecurityManager;
+import com.timexautoweb.util.TimexJmxBean;
+import com.timexautoweb.view.XMLView;
 
 /**
  * Test class for TimeListController
@@ -26,6 +28,8 @@ public class TimesheetListControllerTest extends TestCase {
 	private TimesheetListController timesheetListController = null;
 	private TimesheetHome timesheetManager = null;
 	private ApplicationSecurityManager applicationSecurityManager = null;
+	private XMLView xmlView;
+	private TimexJmxBean timexJmxBean = null;
 	private final int EMPLOYEE_ID = 1;
 	Timesheet timesheet1 = null;
 	Timesheet timesheet2 = null;
@@ -74,10 +78,15 @@ public class TimesheetListControllerTest extends TestCase {
 		timesheetManager = new TimesheetHome();
 		applicationSecurityManager = new ApplicationSecurityManager();
 		applicationSecurityManager.setEmployee(mockHttpServletRequest, employee);
+		xmlView = new XMLView();
+
+		timexJmxBean = new TimexJmxBean();
 		// Inject objects Spring normally would
 		timesheetListController = new TimesheetListController();
 		timesheetListController.setTimesheetManager(timesheetManager);
 		timesheetListController.setApplicationSecurityManager(applicationSecurityManager);
+		timesheetListController.setXmlView(xmlView);
+		timesheetListController.setTimexJmxBean(timexJmxBean);
 	}
 
 	/**

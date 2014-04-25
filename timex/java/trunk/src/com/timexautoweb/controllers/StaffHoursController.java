@@ -15,6 +15,7 @@ import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.domain.TimesheetList;
 import com.timexautoweb.util.ApplicationSecurityManager;
+import com.timexautoweb.util.TimexJmxBean;
 
 /**
  * @author Alvaro E. Escobar
@@ -24,6 +25,7 @@ public class StaffHoursController extends SimpleFormController {
 	private TimesheetHome timesheetManager;
 	private EmployeeHome employeeManager;
 	private ApplicationSecurityManager applicationSecurityManager;
+	private TimexJmxBean timexJmxBean;
 
 	/**
 	 * Returns a list of non-paid Timesheets from employees that report to
@@ -39,6 +41,7 @@ public class StaffHoursController extends SimpleFormController {
 		for (Employee e : reportingEmployees) {
 			Integer employeeId = e.getId();
 			List<Timesheet> empTimesheets = timesheetManager.getTimesheets(employeeId);
+			timexJmxBean.setTimesheetsFetched(timexJmxBean.getTimesheetsFetched() + empTimesheets.size());
 			for (Timesheet t : empTimesheets) {
 				if (t.getStatusCode() != Timesheet.PAID) {
 					timesheets.add(t);
@@ -71,4 +74,13 @@ public class StaffHoursController extends SimpleFormController {
 	public void setApplicationSecurityManager(ApplicationSecurityManager applicationSecurityManager) {
 		this.applicationSecurityManager = applicationSecurityManager;
 	}
+
+	public TimexJmxBean getTimexJmxBean() {
+		return timexJmxBean;
+	}
+
+	public void setTimexJmxBean(TimexJmxBean timexJmxBean) {
+		this.timexJmxBean = timexJmxBean;
+	}
+
 }

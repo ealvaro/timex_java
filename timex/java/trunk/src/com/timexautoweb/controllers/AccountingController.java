@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.timexautoweb.domain.Timesheet;
 import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.domain.TimesheetList;
+import com.timexautoweb.util.TimexJmxBean;
 
 /**
  * @author Alvaro E. Escobar
@@ -19,12 +20,14 @@ import com.timexautoweb.domain.TimesheetList;
 public class AccountingController extends SimpleFormController {
 
 	private TimesheetHome timesheetManager;
+	private TimexJmxBean timexJmxBean;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
 	 */
 	protected Object formBackingObject(HttpServletRequest request) {
 		List<Timesheet> timesheets = timesheetManager.getTimesheets(Timesheet.APPROVED);
+		timexJmxBean.setTimesheetsFetched(timexJmxBean.getTimesheetsFetched() + timesheets.size());
 		return new TimesheetList(timesheets);
 	}
 
@@ -45,5 +48,13 @@ public class AccountingController extends SimpleFormController {
 
 	public void setTimesheetManager(TimesheetHome timesheetManager) {
 		this.timesheetManager = timesheetManager;
+	}
+
+	public TimexJmxBean getTimexJmxBean() {
+		return timexJmxBean;
+	}
+
+	public void setTimexJmxBean(TimexJmxBean timexJmxBean) {
+		this.timexJmxBean = timexJmxBean;
 	}
 }

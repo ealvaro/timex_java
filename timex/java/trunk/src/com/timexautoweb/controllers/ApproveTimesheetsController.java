@@ -24,6 +24,7 @@ import com.timexautoweb.domain.TimesheetHome;
 import com.timexautoweb.domain.TimesheetList;
 import com.timexautoweb.util.ApplicationSecurityManager;
 import com.timexautoweb.util.DateUtil;
+import com.timexautoweb.util.TimexJmxBean;
 
 /**
  * Controller class for the "Approve Timesheets" screen
@@ -33,6 +34,7 @@ import com.timexautoweb.util.DateUtil;
 public class ApproveTimesheetsController extends SimpleFormController {
 
 	private TimesheetHome timesheetManager;
+	private TimexJmxBean timexJmxBean;
 	private EmployeeHome employeeManager;
 	private ApplicationSecurityManager applicationSecurityManager;
 	private SimpleMailMessage approvalMessage;
@@ -53,6 +55,7 @@ public class ApproveTimesheetsController extends SimpleFormController {
 		for (Employee e : reportingEmployees) {
 			Integer employeeId = e.getId();
 			List<Timesheet> empTimesheets = timesheetManager.getTimesheets(employeeId);
+			timexJmxBean.setTimesheetsFetched(timexJmxBean.getTimesheetsFetched() + empTimesheets.size());
 			for (Timesheet t : empTimesheets) {
 				if (t.getStatusCode() == (Timesheet.SUBMITTED)
 						|| (DateUtil.isInCurrentPayPeriod(t.getPeriodEndingDate()) && (t.getStatusCode() == (Timesheet.DISAPPROVED) || t
@@ -157,5 +160,13 @@ public class ApproveTimesheetsController extends SimpleFormController {
 
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
+	}
+
+	public TimexJmxBean getTimexJmxBean() {
+		return timexJmxBean;
+	}
+
+	public void setTimexJmxBean(TimexJmxBean timexJmxBean) {
+		this.timexJmxBean = timexJmxBean;
 	}
 }
